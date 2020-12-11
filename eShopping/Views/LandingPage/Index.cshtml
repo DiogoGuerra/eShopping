@@ -1,0 +1,311 @@
+﻿@model dynamic
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>eShopping | Landing Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PWEB-eShopping discover biological products within a click" />
+    <meta name="keywords" content="find biologic produts, PWEB, eShopping" />
+    <meta name="author" content="Diogo Guerra | Rafael Abrantes" />
+
+    <!--
+      //////////////////////////////////////////////////////
+      FREE HTML5 TEMPLATE
+      DESIGNED & DEVELOPED by FREEHTML5.CO
+
+      Website: 		http://freehtml5.co/
+      Email: 			info@freehtml5.co
+      Twitter: 		http://twitter.com/fh5co
+      Facebook: 		https://www.facebook.com/fh5co
+      //////////////////////////////////////////////////////
+       -->
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+
+    @Styles.Render("~/crew/css")
+
+</head>
+<body>
+    <header role="banner" id="fh5co-header">
+        <div class="container fixed-top">
+            <!-- <div class="row"> -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <!-- Mobile Toggle Menu Button -->
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+                    <a class="navbar-brand" href="index.html">eShopping</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#" data-nav-section="home"><span>Home</span></a></li>
+                        <li><a href="#" data-nav-section="about"><span>About</span></a></li>
+                        <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
+                        <li><a href="#" data-nav-section="testimonials"><span>Products</span></a></li>
+                        <li><a href="#" data-nav-section="features"><span>Features</span></a></li>
+                        <li><a href="@Url.Action("Index", "Home")"><span>Login</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- </div> -->
+        </div>
+    </header>
+
+    <div id="slider" data-section="home">
+        <div class="owl-carousel owl-carousel-fullwidth">
+            <!-- You may change the background color here. -->
+            <div class="item" style="background: #0c6434">
+                <!-- #aa8b2b-->
+                <div class="container" style="position: relative;">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-7">
+                            <div class="fh5co-owl-text-wrap">
+                                <div class="fh5co-owl-text">
+                                    <h1 class="fh5co-lead to-animate">Find your environmentally friendly products</h1>
+                                    <h2 class="fh5co-sub-lead to-animate">Easily find and buy the products that have less environmental impact in your desired location</h2>
+                                    <p class="to-animate-2"><a href="#fh5co-testimonials" class="btn btn-primary btn-lg">View Products</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-md-push-1 col-sm-4 col-sm-push-1 iphone-image">
+                            <div class="iphone to-animate-2"><img src="~/Content/Images/landingPage/farmland.jpg" alt="Farmland Image"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- You may change the background color here.  -->
+            <div class="item" style="background: #aa8b2b;">
+                <div class="container" style="position: relative;">
+                    <div class="row">
+                        <div class="col-md-7 col-md-push-1 col-md-push-5 col-sm-7 col-sm-push-1 col-sm-push-5">
+                            <div class="fh5co-owl-text-wrap">
+                                <div class="fh5co-owl-text">
+                                    <h1 class="fh5co-lead to-animate">Grown by Nature</h1>
+                                    <h2 class="fh5co-sub-lead to-animate">We connect buyers and sellers of natural, organic, environmentally sound products.</h2>
+                                    <p class="to-animate-2"><a href="#fh5co-about-us" class="btn btn-primary btn-lg">Find out more</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-md-pull-7 col-sm-4 col-sm-pull-7 iphone-image">
+                            <div class="iphone to-animate-2"><img src="~/Content/Images/landingPage/logo2.png" alt="Free HTML5 Template by FREEHTML5.co"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fh5co-about-us" data-section="about">
+        <div class="container">
+            <div class="row row-bottom-padded-lg" id="about-us">
+                <div class="col-md-12 section-heading text-center">
+                    <h2 class="to-animate">About Us</h2>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 to-animate">
+                            <h3>Our aim is to connect people, share stories and help independent eco-businesses to grow. We want everyone to be able to choose products created with care, that have less environmental impact. </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 to-animate">
+                    <img src="~/Content/Images/landingPage/1.jpeg" class="img-responsive img-rounded" alt="Farm Logo">
+                </div>
+                <div class="col-md-4 to-animate">
+                    <h2>How we got started</h2>
+                    <p>Our passion is for our planet. We believe it should be easy to live well and care for the environment and the natural world. Why not? By supporting the natural and organic trade, we can promote its benefits and support wider issues that mean a lot to us. Our market isn’t going to save the world, but it might help in a small way to increase sustainability. </p>
+                    <p>Welcome to our new look shop. We hope that it is a simpler and cleaner experience for you.</p>
+                    <p><a href="#" class="btn btn-primary">Find our products</a></p>
+                </div>
+            </div>
+            <div class="row" id="team">
+                <div class="col-md-12">
+                    <div class="row row-bottom-padded-lg">
+                        <div class="col-md-4 text-center to-animate">
+                            <div class="person">
+                                <img src="~/Content/Images/landingPage/organic2.jpg" class="img-responsive img-rounded" alt="Logo Organic">
+                                <h3 class="name">Organic</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center to-animate">
+                            <div class="person">
+                                <img src="~/Content/Images/landingPage/natural.jpg" class="img-responsive img-rounded" alt="Logo Natural">
+                                <h3 class="name">Natural</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center to-animate">
+                            <div class="person">
+                                <img src="~/Content/Images/landingPage/zero.jpg" class="img-responsive img-rounded" alt="Logo Sustainable">
+                                <h3 class="name">Sustainable</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fh5co-our-services" data-section="services">
+        <div class="container">
+            <div class="row row-bottom-padded-sm">
+                <div class="col-md-12 section-heading text-center">
+                    <h2 class="to-animate">Our Services</h2>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 to-animate">
+                            <h3>Act Responsible, Think Sustainable.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box to-animate">
+                        <div class="icon colored-1"><span><i class="icon-money"></i></span></div>
+                        <h3>Fair price</h3>
+                        <p>High quality products, produced with care, at a fair price. We have the best quality / price ratio on the market.</p>
+                    </div>
+                    <div class="box to-animate">
+                        <div class="icon colored-5"><span><i class="icon-briefcase2"></i></span></div>
+                        <h3>Business ready</h3>
+                        <p>Register your company and be part of the sustainable movement with our users, helping to improve sustainability.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box to-animate">
+                        <div class="icon colored-2"><span><i class="icon-lightbulb-o"></i></span></div>
+                        <h3>Fast &amp; Simple</h3>
+                        <p>Consult the daily products in a simple way and see which ones best suit your preferences.</p>
+                    </div>
+                    <div class="box to-animate">
+                        <div class="icon colored-4"><span><i class="icon-search"></i></span></div>
+                        <h3>The info you want</h3>
+                        <p>Get all the details you could wish for and more in one place, your dashboard, completely personalized for your needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box to-animate">
+                        <div class="icon colored-3"><span><i class="icon-chemistry"></i></span></div>
+                        <h3>Chemical free</h3>
+                        <p>Products from organic farming are free of synthetic chemicals, promoting an improvement in people's health.</p>
+                    </div>
+                    <div class="box to-animate">
+                        <div class="icon colored-6"><span><i class="icon-refresh"></i></span></div>
+                        <h3>Always updated</h3>
+                        <p>Realtime information anywhere you search so you never miss a thing and quickly find what you are looking for.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fh5co-testimonials" data-section="testimonials">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 section-heading text-center">
+                    <h2 class="to-animate">Products</h2>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 subtext to-animate">
+                            <h3>Discover and enjoy our product catalog.</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="row">
+                        <input id="pac-input" class="controls to-animate" type="text" placeholder="Search Box">
+                        <div id="map" class="to-animate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fh5co-features" data-section="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 section-heading text-center">
+                    <h2 class="single-animate animate-features-1">Features</h2>
+                    @*<div class="row">
+                            <div class="col-md-8 col-md-offset-2 single-animate animate-features-2">
+                                <h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="row row-bottom-padded-sm">
+                <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service to-animate">
+                    <div class="fh5co-icon"><i class="icon-present"></i></div>
+                    <div class="fh5co-desc">
+                        <h3>100% Free</h3>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service to-animate">
+                    <div class="fh5co-icon"><i class="icon-badge"></i></div>
+                    <div class="fh5co-desc">
+                        <h3>Eco Friendly</h3>
+                        <p>Join us and start making a difference in the world by being part of the sustainable community.</p>
+                    </div>
+                </div>
+                <div class="clearfix visible-sm-block visible-xs-block"></div>
+                <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service to-animate">
+                    <div class="fh5co-icon"><i class="icon-lock2"></i></div>
+                    <div class="fh5co-desc">
+                        <h3>Safe and secure information</h3>
+                        <p>All the data we share is annonymous and is only used to help us improve our service. </p>
+                    </div>
+                </div>
+                <div class="clearfix visible-sm-block visible-xs-block"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 single-animate animate-features-3">
+                    <a href="#" class="btn btn-primary btn-block">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer" role="contentinfo">
+        <div class="container">
+            <div class="row row-bottom-padded-sm">
+                <div class="col-md-12">
+                    <p class="copyright text-center">&copy; @DateTime.Now.Year PWEB | eShopping. All Rights Reserved. <br> Powered by <a href="https://isec.pt/" target="_blank">ISEC</a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="social social-circle">
+                        <li><a href="https://www.facebook.com/IPC.ISEC/"><i class="icon-facebook"></i></a></li>
+                        <li><a href="https://www.linkedin.com/school/isec-ipc/"><i class="icon-linkedin"></i></a></li>
+                        <li><a href="https://www.instagram.com/isecoimbra/"><i class="icon-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/crew/js")
+
+</body>
+</html>
