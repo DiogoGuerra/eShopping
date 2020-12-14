@@ -29,5 +29,10 @@ namespace eShopping.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Category> Categorias { get; set; }
+        public DbSet<Products> Produtos { get; set; }
+        public DbSet<Delivery> Entregas { get; set; }
+        public DbSet<Purchase> Compras { get; set; }
+        public DbSet<Promotion> Promocoes { get; set; }
     }
 }

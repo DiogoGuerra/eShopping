@@ -180,6 +180,10 @@
     <Compile Include="Migrations\202012141919551_InitialCreate.Designer.cs">
       <DependentUpon>202012141919551_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012142052109_DataModelsTabels.cs" />
+    <Compile Include="Migrations\202012142052109_DataModelsTabels.Designer.cs">
+      <DependentUpon>202012142052109_DataModelsTabels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data_Models\Category.cs" />
@@ -2302,6 +2306,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202012141919551_InitialCreate.resx">
       <DependentUpon>202012141919551_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012142052109_DataModelsTabels.resx">
+      <DependentUpon>202012142052109_DataModelsTabels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

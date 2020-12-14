@@ -3,30 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eShopping.Models
 {
     public class Products
     {
+        [Key]
         public int ID { get; set; }
-        [StringLength(128)]
+        [Required]
+        [MaxLength(50, ErrorMessage = "The maximum character limit is 50")]
         public string Nome_Produto { get; set; }
         [Range(0,100)]
-        public int Stock { get; set; }
         [Required]
-        [Range(0.1,100)]
-        public Promotion Promo { get; set; } // Passar para classe
-        public int PromocaoID { get; set; }
+        public int Stock { get; set; }
+        public Promotion Promo { get; set; }
         [Required]
         public string ID_Empresa { get; set; }
         [Required]
         [Range(0.1,100)]
         public double Preco_Produto; // Na vista, nao mostrava o preco, por causa da promo 
-
+        [Required]
         public bool EstaNoCatalogo { get; set; }
-
+       
         public Category Categoria { get; set; }
+        [Required]
         public int CategoriaID { get; set; }
+
+        public ICollection<Purchase> Compra { get; set; }
 
     }
 
