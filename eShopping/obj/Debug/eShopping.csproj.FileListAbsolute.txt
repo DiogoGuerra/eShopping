@@ -214,3 +214,5 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.Core
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.CopyComplete
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.dll
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.pdb
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.InitialCreate.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.GenerateResource.cache
