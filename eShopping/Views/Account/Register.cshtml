@@ -40,14 +40,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary("", new { @class = "text-danger" })
-                    @*<div class="input-group mb-3">
+                    <div class="input-group mb-3">
                         @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-control" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
-                    </div>*@
+                    </div>
                     <div class="input-group mb-3">
                         @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-control" })
                         <div class="input-group-append">
