@@ -1,0 +1,64 @@
+﻿@model eShopping.Models.Products
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Nome_Categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome_Categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome_Produto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome_Produto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Empresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Empresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstaNoCatalogo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstaNoCatalogo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

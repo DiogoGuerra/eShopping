@@ -1,0 +1,58 @@
+﻿@model eShopping.Models.Products
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Nome_Categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome_Categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome_Produto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome_Produto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Empresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Empresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstaNoCatalogo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstaNoCatalogo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
