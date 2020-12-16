@@ -217,3 +217,4 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.pdb
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.InitialCreate.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.GenerateResource.cache
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.DataModelsTabels.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.SeedUsers.resources
