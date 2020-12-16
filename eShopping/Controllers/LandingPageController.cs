@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace eShopping.Controllers
 {
+    [AllowAnonymous]
     public class LandingPageController : Controller
     {
         // GET: LandingPage
