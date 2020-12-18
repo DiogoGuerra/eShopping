@@ -15,9 +15,12 @@ namespace eShopping.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string categoria)
         {
             var produtos = db.Produtos.Include(p => p.Categoria);
+
+            if (!string.IsNullOrEmpty(categoria))
+                produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria);
             return View(produtos.ToList());
         }
 
@@ -28,7 +31,8 @@ namespace eShopping.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Products products = db.Produtos.Find(id);
+            //Para aparecer a categoria nos detalhes temos de incluir
+            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ID == id).SingleOrDefault();
             if (products == null)
             {
                 return HttpNotFound();
@@ -101,7 +105,7 @@ namespace eShopping.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Products products = db.Produtos.Find(id);
+            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ID == id).SingleOrDefault();
             if (products == null)
             {
                 return HttpNotFound();
