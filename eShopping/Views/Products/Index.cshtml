@@ -21,6 +21,9 @@
             @Html.DisplayNameFor(model => model.Stock)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Preco_Produto)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ID_Empresa)
         </th>
         <th>
@@ -30,28 +33,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome_Produto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID_Empresa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstaNoCatalogo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nome_Produto)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Stock)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Preco_Produto)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ID_Empresa)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EstaNoCatalogo)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
 }
 
 </table>

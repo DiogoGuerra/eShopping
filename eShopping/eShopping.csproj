@@ -190,6 +190,14 @@
     <Compile Include="Migrations\202012161643500_SeedUsers.Designer.cs">
       <DependentUpon>202012161643500_SeedUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012181518557_DataModelsTabels1.cs" />
+    <Compile Include="Migrations\202012181518557_DataModelsTabels1.Designer.cs">
+      <DependentUpon>202012181518557_DataModelsTabels1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012181524096_DataModelsTabels2.cs" />
+    <Compile Include="Migrations\202012181524096_DataModelsTabels2.Designer.cs">
+      <DependentUpon>202012181524096_DataModelsTabels2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data_Models\Category.cs" />
@@ -2329,6 +2337,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012161643500_SeedUsers.resx">
       <DependentUpon>202012161643500_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012181518557_DataModelsTabels1.resx">
+      <DependentUpon>202012181518557_DataModelsTabels1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012181524096_DataModelsTabels2.resx">
+      <DependentUpon>202012181524096_DataModelsTabels2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

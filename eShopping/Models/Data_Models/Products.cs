@@ -21,8 +21,8 @@ namespace eShopping.Models
         [Required]
         public string ID_Empresa { get; set; }
         [Required]
-        [Range(0.1,100)]
-        public double Preco_Produto; // Na vista, nao mostrava o preco, por causa da promo 
+        [Range(0,100)]
+        public double Preco_Produto { get; set; } // Na vista, nao mostrava o preco, por causa da promo 
         [Required]
         public bool EstaNoCatalogo { get; set; }
        

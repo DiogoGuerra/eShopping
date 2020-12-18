@@ -48,7 +48,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome_Produto,Stock,ID_Empresa,EstaNoCatalogo,CategoriaID")] Products products)
+        public ActionResult Create([Bind(Include = "ID,Nome_Produto,Stock,Preco_Produto,ID_Empresa,EstaNoCatalogo,CategoriaID")] Products products)
         {
             if (ModelState.IsValid)
             {
