@@ -13,17 +13,20 @@ namespace eShopping.Models
         public int ID { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "The maximum character limit is 50")]
+        [Display(Name = "Product Name")]
         public string Nome_Produto { get; set; }
         [Range(0,100)]
         [Required]
         public int Stock { get; set; }
+        [Display(Name = "Promotion")]
         public Promotion Promo { get; set; }
         [Required]
+        [Display(Name = "Company ID")]
         public string ID_Empresa { get; set; }
         [Required]
         [Range(0,100)]
-        public double Preco_Produto { get; set; } // Na vista, nao mostrava o preco, por causa da promo 
-        [Required]
+        [Display(Name = "Price")]
+        public double Preco_Produto { get; set; } 
         public bool EstaNoCatalogo { get; set; }
        
         public Category Categoria { get; set; }
