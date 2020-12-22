@@ -23,6 +23,15 @@ namespace eShopping.Controllers
                 produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria);
             return View(produtos.ToList());
         }
+        //Lista de Produtos que o cliente pode comprar
+        public ActionResult ListCostumerProducts(string categoria)
+        {
+            var produtos = db.Produtos.Include(p => p.Categoria);
+
+            if (!string.IsNullOrEmpty(categoria))
+                produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria);
+            return View(produtos.ToList());
+        }
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
