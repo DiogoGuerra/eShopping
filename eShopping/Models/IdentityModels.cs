@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using eShopping.Models.Data_Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -34,5 +35,7 @@ namespace eShopping.Models
         public DbSet<Delivery> Entregas { get; set; }
         public DbSet<Purchase> Compras { get; set; }
         public DbSet<Promotion> Promocoes { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<Item> Item { get; set; }
     }
 }

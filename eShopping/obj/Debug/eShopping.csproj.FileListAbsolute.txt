@@ -219,3 +219,4 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.Gene
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.DataModelsTabels.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.SeedUsers.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.DataModelsTabels1.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddCartAndItemModel.resources
