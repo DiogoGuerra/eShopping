@@ -1,9 +1,14 @@
 ﻿@model IEnumerable<eShopping.Models.Products>
 
 @{
-    ViewBag.Title = "List of Products";
+    ViewBag.Title = "ListCostumerProducts";
 }
 
+<h2>ListCostumerProducts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -28,7 +33,6 @@
     </tr>
 
 @foreach (var item in Model) {
-    if(item.Stock > 0) { 
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
@@ -49,12 +53,9 @@
             @Html.DisplayFor(modelItem => item.EstaNoCatalogo)
         </td>
         <td>
-            <div class="btn btn-default">
-                @Html.ActionLink("Buy", "ItemSelect", "Items", new { id = item.ID }, null)
-            </div>
+            @Html.ActionLink("Buy", "Edit", new { id=item.ProductID })
         </td>
     </tr>
-    }
 }
 
 </table>

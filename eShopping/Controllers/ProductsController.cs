@@ -15,15 +15,12 @@ namespace eShopping.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Products
-        public ActionResult Index(string categoria)
+        public ActionResult Index()
         {
             var produtos = db.Produtos.Include(p => p.Categoria);
-
-            if (!string.IsNullOrEmpty(categoria))
-                produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria);
             return View(produtos.ToList());
         }
-        //Lista de Produtos que o cliente pode comprar
+
         public ActionResult ListCostumerProducts(string categoria)
         {
             var produtos = db.Produtos.Include(p => p.Categoria);
@@ -61,7 +58,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome_Produto,Stock,Preco_Produto,ID_Empresa,EstaNoCatalogo,CategoriaID")] Products products)
+        public ActionResult Create([Bind(Include = "ProductID,Nome_Produto,Stock,ID_Empresa,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +92,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome_Produto,Stock,Preco_Produto,ID_Empresa,EstaNoCatalogo,CategoriaID")] Products products)
+        public ActionResult Edit([Bind(Include = "ProductID,Nome_Produto,Stock,ID_Empresa,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
         {
             if (ModelState.IsValid)
             {
