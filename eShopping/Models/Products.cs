@@ -15,7 +15,7 @@ namespace eShopping.Models
         [MaxLength(50, ErrorMessage = "The maximum character limit is 50")]
         [Display(Name = "Product Name")]
         public string Nome_Produto { get; set; }
-        [Range(0,100)]
+        [Range(0, 100)]
         [Required]
         public int Stock { get; set; }
         [Display(Name = "Promotion")]
@@ -24,17 +24,19 @@ namespace eShopping.Models
         [Display(Name = "Company ID")]
         public string ID_Empresa { get; set; }
         [Required]
-        [Range(0,100)]
+        [Range(0, 100)]
         [Display(Name = "Price")]
-        public double Preco_Produto { get; set; } 
+        public double Preco_Produto { get; set; }
         public bool EstaNoCatalogo { get; set; }
-       
+
         public Category Categoria { get; set; }
         [Required]
         public int? CategoriaID { get; set; }
 
         public ICollection<Order> Pedido { get; set; }
 
+        [Required]
+        public bool EstaEliminado {get;set ;}
     }
 
 }

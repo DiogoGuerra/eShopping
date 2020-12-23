@@ -17,7 +17,7 @@ namespace eShopping.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categorias.ToList());
+            return View(db.Categorias.OrderBy(c => c.Nome_Categoria).ToList());
         }
 
         // GET: Categories/Details/5
@@ -48,8 +48,14 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Nome_Categoria")] Category category)
         {
+            if (NameCategoryRepeted(category))
+            {
+                ModelState.AddModelError("Nome_Categoria", "This name already exists!");
+            }
+
             if (ModelState.IsValid)
             {
+                category.EstaEliminado = false;
                 db.Categorias.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -109,9 +115,20 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categorias.Find(id);
-            db.Categorias.Remove(category);
+
+            Category category = db.Categorias.Include("Produtos").FirstOrDefault(c => c.ID == id);
+            
+            if(category == null)
+                return RedirectToAction("Index");
+
+            foreach (var i in category.Produtos)
+                i.CategoriaID = null;
+
+            if (category.EstaEliminado == false)
+                category.EstaEliminado = true;
             db.SaveChanges();
+
+
             return RedirectToAction("Index");
         }
 
@@ -122,6 +139,14 @@ namespace eShopping.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [NonAction]
+        private bool NameCategoryRepeted(Category categoria)
+        {
+            if (db.Categorias.Where(n => n.Nome_Categoria == categoria.Nome_Categoria).FirstOrDefault() == null)
+                return false;
+            return true;
         }
     }
 }

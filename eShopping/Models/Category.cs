@@ -18,5 +18,7 @@ namespace eShopping.Models
         public string Nome_Categoria { get; set; }
 
         public ICollection<Products> Produtos { get; set; }
+
+        public bool EstaEliminado { get; set; }
     }
 }

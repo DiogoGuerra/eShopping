@@ -218,6 +218,10 @@
     <Compile Include="Migrations\202012231719096_CreateOrderCompanyStatusModels.Designer.cs">
       <DependentUpon>202012231719096_CreateOrderCompanyStatusModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012231847479_BoolEstaEliminado.cs" />
+    <Compile Include="Migrations\202012231847479_BoolEstaEliminado.Designer.cs">
+      <DependentUpon>202012231847479_BoolEstaEliminado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -2383,6 +2387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012231719096_CreateOrderCompanyStatusModels.resx">
       <DependentUpon>202012231719096_CreateOrderCompanyStatusModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231847479_BoolEstaEliminado.resx">
+      <DependentUpon>202012231847479_BoolEstaEliminado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
