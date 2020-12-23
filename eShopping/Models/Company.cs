@@ -4,15 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace eShopping.Models.Data_Models
+namespace eShopping.Models
 {
-    public class Cart
+    public class Company
     {
         [Key]
         public int ID { get; set; }
+        public string Nome { get; set; }
 
-        public ICollection<Item> Items { get; set; }
-        [Required]
-        public string ID_Cliente { get; set; }
+        public ICollection<Order> Pedidos { get; set; }
     }
 }

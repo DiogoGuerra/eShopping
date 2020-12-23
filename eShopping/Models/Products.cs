@@ -10,7 +10,7 @@ namespace eShopping.Models
     public class Products
     {
         [Key]
-        public int ID { get; set; }
+        public int ProductID { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "The maximum character limit is 50")]
         [Display(Name = "Product Name")]
@@ -31,9 +31,9 @@ namespace eShopping.Models
        
         public Category Categoria { get; set; }
         [Required]
-        public int CategoriaID { get; set; }
+        public int? CategoriaID { get; set; }
 
-        public ICollection<Purchase> Compra { get; set; }
+        public ICollection<Order> Pedido { get; set; }
 
     }
 

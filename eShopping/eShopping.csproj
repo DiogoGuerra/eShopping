@@ -198,18 +198,39 @@
     <Compile Include="Migrations\202012222015585_AddCartAndItemModel.Designer.cs">
       <DependentUpon>202012222015585_AddCartAndItemModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012230012070_RemoveCartItem.cs" />
+    <Compile Include="Migrations\202012230012070_RemoveCartItem.Designer.cs">
+      <DependentUpon>202012230012070_RemoveCartItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012230016017_AddItemAddCart.cs" />
+    <Compile Include="Migrations\202012230016017_AddItemAddCart.Designer.cs">
+      <DependentUpon>202012230016017_AddItemAddCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012230022198_UpdateItemModel.cs" />
+    <Compile Include="Migrations\202012230022198_UpdateItemModel.Designer.cs">
+      <DependentUpon>202012230022198_UpdateItemModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231614078_RemoveDataModelsCartAndItem.cs" />
+    <Compile Include="Migrations\202012231614078_RemoveDataModelsCartAndItem.Designer.cs">
+      <DependentUpon>202012231614078_RemoveDataModelsCartAndItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231719096_CreateOrderCompanyStatusModels.cs" />
+    <Compile Include="Migrations\202012231719096_CreateOrderCompanyStatusModels.Designer.cs">
+      <DependentUpon>202012231719096_CreateOrderCompanyStatusModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Data_Models\Cart.cs" />
-    <Compile Include="Models\Data_Models\Category.cs" />
-    <Compile Include="Models\Data_Models\Delivery.cs" />
-    <Compile Include="Models\Data_Models\Item.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Data_Models\Products.cs" />
-    <Compile Include="Models\Data_Models\Promotion.cs" />
-    <Compile Include="Models\Data_Models\Purchase.cs" />
+    <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\ProductsOrder.cs" />
+    <Compile Include="Models\Promotion.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -2314,6 +2335,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Data_Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -2346,6 +2368,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012222015585_AddCartAndItemModel.resx">
       <DependentUpon>202012222015585_AddCartAndItemModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012230012070_RemoveCartItem.resx">
+      <DependentUpon>202012230012070_RemoveCartItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012230016017_AddItemAddCart.resx">
+      <DependentUpon>202012230016017_AddItemAddCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012230022198_UpdateItemModel.resx">
+      <DependentUpon>202012230022198_UpdateItemModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231614078_RemoveDataModelsCartAndItem.resx">
+      <DependentUpon>202012231614078_RemoveDataModelsCartAndItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231719096_CreateOrderCompanyStatusModels.resx">
+      <DependentUpon>202012231719096_CreateOrderCompanyStatusModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,6 +15,6 @@ namespace eShopping.Models
         [MaxLength(50, ErrorMessage = "The maximum character limit is 50")]
         public string Tipo { get; set; }
 
-        public ICollection<Purchase> Compras { get; set; }
+        public ICollection<Order> Compras { get; set; }
     }
 }

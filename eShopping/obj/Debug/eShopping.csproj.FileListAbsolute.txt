@@ -220,3 +220,8 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.SeedUsers.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.DataModelsTabels1.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddCartAndItemModel.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.RemoveCartItem.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddItemAddCart.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.UpdateItemModel.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.RemoveDataModelsCartAndItem.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.CreateOrderCompanyStatusModels.resources

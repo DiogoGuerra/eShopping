@@ -41,7 +41,7 @@ namespace eShopping.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Para aparecer a categoria nos detalhes temos de incluir
-            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ID == id).SingleOrDefault();
+            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ProductID == id).SingleOrDefault();
             if (products == null)
             {
                 return HttpNotFound();
@@ -114,7 +114,7 @@ namespace eShopping.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ID == id).SingleOrDefault();
+            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ProductID == id).SingleOrDefault();
             if (products == null)
             {
                 return HttpNotFound();
