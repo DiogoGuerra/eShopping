@@ -20,18 +20,22 @@ namespace eShopping
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap.bundle.min.js"));
+                        "~/Scripts/bootstrap.bundle.min.js", "~/Scripts/bootstrap.js",
+                      "~/Scripts/datatables/datatbles.bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/adminlte/plugins/fontawesome-free/css/all.min.css",
                       "~/adminlte/plugins/summernote/summernote-bs4.min.css",
                       "~/adminlte/css/adminlte.min.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css"));
 
             bundles.Add(new ScriptBundle("~/adminlte/js").Include(
                 "~/adminlte/js/adminlte.min.js",
-                 "~/adminlte/plugins/summernote/summernote-bs4.min.js"));
+                 "~/adminlte/plugins/summernote/summernote-bs4.min.js",
+                 "~/adminlte/plugins/datatables/jquery.dataTables.js",
+                "~/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"));
 
             bundles.Add(new Bundle("~/crew/css").Include(
                "~/crew/css/bootstrap.css",
