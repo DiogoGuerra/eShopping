@@ -17,7 +17,7 @@ namespace eShopping.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categorias.OrderBy(c => c.Nome_Categoria).ToList());
+            return View(db.Categorias.Where(c => c.EstaEliminado == false).OrderBy(c => c.Nome_Categoria).ToList());
         }
 
         // GET: Categories/Details/5

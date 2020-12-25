@@ -30,7 +30,6 @@ namespace eShopping.Models
         public bool EstaNoCatalogo { get; set; }
 
         public Category Categoria { get; set; }
-        [Required]
         public int? CategoriaID { get; set; }
 
         public ICollection<Order> Pedido { get; set; }
