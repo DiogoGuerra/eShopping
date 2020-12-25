@@ -86,6 +86,10 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Nome_Categoria")] Category category)
         {
+            if (NameCategoryRepeted(category))
+            {
+                ModelState.AddModelError("Nome_Categoria", "This name already exists!");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(category).State = EntityState.Modified;
