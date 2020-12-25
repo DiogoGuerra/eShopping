@@ -60,11 +60,23 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductID,Nome_Produto,Stock,ID_Empresa,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
         {
+            bool flag = false;
+            foreach (var i in db.Produtos)
+            {
+                if (i.Nome_Produto == products.Nome_Produto && i.ID_Empresa == products.ID_Empresa)
+                {
+                    flag = true;
+                    ModelState.AddModelError("ID_Empresa", "This company already have this product!");
+                }
+            }
             if (ModelState.IsValid)
             {
-                db.Produtos.Add(products);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (flag == false)
+                {
+                    db.Produtos.Add(products);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.CategoriaID = new SelectList(db.Categorias, "ID", "Nome_Categoria", products.CategoriaID);
@@ -139,4 +151,16 @@ namespace eShopping.Controllers
             base.Dispose(disposing);
         }
     }
+
+    //public bool NameProductRepeted(Products produto)
+    //{
+    //    foreach (var i in db.Produtos)
+    //    {
+    //        if (i.Nome_Produto == products.Nome_Produto && i.ID_Empresa == products.ID_Empresa)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
 }
