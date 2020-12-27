@@ -49,7 +49,7 @@ namespace eShopping.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.CategoriaID = new SelectList(db.Categorias, "ID", "Nome_Categoria");
+            ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria");
             return View();
         }
 
@@ -78,8 +78,7 @@ namespace eShopping.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
-            ViewBag.CategoriaID = new SelectList(db.Categorias, "ID", "Nome_Categoria", products.CategoriaID);
+            ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
 
@@ -95,7 +94,7 @@ namespace eShopping.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoriaID = new SelectList(db.Categorias, "ID", "Nome_Categoria", products.CategoriaID);
+            ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
 
@@ -123,7 +122,7 @@ namespace eShopping.Controllers
                 return RedirectToAction("Index");
                 }
             }
-            ViewBag.CategoriaID = new SelectList(db.Categorias, "ID", "Nome_Categoria", products.CategoriaID);
+            ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
 
