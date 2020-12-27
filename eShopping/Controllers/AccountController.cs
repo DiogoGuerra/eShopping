@@ -147,6 +147,9 @@ namespace eShopping.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var roles = db.Roles.Where(m => m.Name == RoleName.User || m.Name == RoleName.Company);
+            ViewBag.RoleName = new SelectList(roles, "Name", "Name");
             return View();
         }
 
@@ -157,6 +160,8 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
@@ -169,8 +174,13 @@ namespace eShopping.Controllers
                     //await roleManager.CreateAsync(new IdentityRole("user"));
                     //await UserManager.AddToRoleAsync(user.Id, "user");
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    if (model.RoleName != RoleName.Admin)
+                    {
+                        UserManager.AddToRole(user.Id, model.RoleName);
+                    }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -182,6 +192,8 @@ namespace eShopping.Controllers
                 AddErrors(result);
             }
 
+            var roles = db.Roles.Where(m => m.Name == RoleName.User || m.Name == RoleName.Company);
+            ViewBag.RoleName = new SelectList(roles, "Name", "Name");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

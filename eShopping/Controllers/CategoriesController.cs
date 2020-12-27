@@ -50,7 +50,14 @@ namespace eShopping.Controllers
         {
             if (NameCategoryRepeted(category))
             {
-                ModelState.AddModelError("Nome_Categoria", "This name already exists!");
+                if (!CategoryIsEliminated(category))
+                {
+                    ModelState.AddModelError("Nome_Categoria", "This name already exists!");
+                }
+                else 
+                {
+                    category.EstaEliminado = false;
+                }
             }
 
             if (ModelState.IsValid)
@@ -149,6 +156,13 @@ namespace eShopping.Controllers
         private bool NameCategoryRepeted(Category categoria)
         {
             if (db.Categorias.Where(n => n.Nome_Categoria == categoria.Nome_Categoria).FirstOrDefault() == null)
+                return false;
+            return true;
+        }
+        [NonAction]
+        private bool CategoryIsEliminated(Category categoria)
+        {
+            if (categoria.EstaEliminado == false)
                 return false;
             return true;
         }
