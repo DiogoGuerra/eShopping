@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eShopping.Models;
+using Microsoft.AspNet.Identity;
+
 
 namespace eShopping.Controllers
 {
@@ -46,9 +48,21 @@ namespace eShopping.Controllers
             return View(products);
         }
 
+        public void setupCompanyIdViewBag()
+        {
+            var roles = db.Roles.Where(r => r.Name == RoleName.Company);
+            if (roles.Any())
+            {
+                var roleId = roles.First().Id;
+                var companyIds = db.Users.Where(u => u.Roles.Any(r => r.RoleId == roleId));
+                var company = companyIds.First();
+                ViewBag.CompanyID = new SelectList(companyIds, "ID", "Email");
+            }
+        }
         // GET: Products/Create
         public ActionResult Create()
         {
+            setupCompanyIdViewBag();
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria");
             return View();
         }
@@ -69,6 +83,11 @@ namespace eShopping.Controllers
                     ModelState.AddModelError("ID_Empresa", "This company already have this product!");
                 }
             }
+
+            if (User.IsInRole(RoleName.Company))
+            {
+                products.ID_Empresa = User.Identity.GetUserId();
+            }
             if (ModelState.IsValid)
             {
                 if (flag == false)
@@ -78,6 +97,7 @@ namespace eShopping.Controllers
                     return RedirectToAction("Index");
                 }
             }
+            setupCompanyIdViewBag();
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
@@ -94,6 +114,7 @@ namespace eShopping.Controllers
             {
                 return HttpNotFound();
             }
+            setupCompanyIdViewBag();
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
@@ -122,6 +143,7 @@ namespace eShopping.Controllers
                 return RedirectToAction("Index");
                 }
             }
+           setupCompanyIdViewBag();
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
