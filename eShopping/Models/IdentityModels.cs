@@ -37,5 +37,9 @@ namespace eShopping.Models
 
         public DbSet<Status> Estados { get; set; }
         public DbSet<ProductsOrder> ProdutosPedidos { get; set; }
+
+        public DbSet<Company> Empresas { get; set; }
+
+        public DbSet<Cart> Carrinho { get; set; }
     }
 }

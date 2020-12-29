@@ -10,14 +10,7 @@ namespace eShopping.Models
     public class ProductsOrder
     {
         [Key]
-        [Column(Order = 1)]
         public int ProductID { get; set; }
-        [Key]
-        [Column(Order = 2)]
-        public int OrderID { get; set; }
-
-        [ForeignKey("OrderID")]
-        public Order Pedido { get; set; }
 
         [ForeignKey("ProductID")]
         public Products Produto { get; set; }

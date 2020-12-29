@@ -1,0 +1,50 @@
+﻿@model eShopping.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Entrega.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entrega.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_Venda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data_Venda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstaFinalizado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstaFinalizado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

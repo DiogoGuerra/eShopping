@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eShopping.Models;
+using eShopping.ViewModels;
 using Microsoft.AspNet.Identity;
 
 
@@ -47,7 +49,58 @@ namespace eShopping.Controllers
             }
             return View(products);
         }
+        public ActionResult ButtonBuy(int id)
+        {
+            var productQuant = new ProductQuantity();
+            productQuant.ID = id;
+            return View(productQuant); 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ButtonBuy([Bind(Include = "ID,Quantidade")] ProductQuantity productQuantity)
+        {
+            if (ModelState.IsValid)
+            {
+                var cart = db.Carrinho.SingleOrDefault();
+               // Se nao houver carrinho
+                if (cart == null)
+                {
+                    //Criar um novo product order
+                        var productOrder = new ProductsOrder();
+                    //Guardar o product ID
+                        productOrder.ProductID = productQuantity.ID;
+                    //Guardar a Quantidade
+                        productOrder.Quantidade = productQuantity.Quantidade;
+                        //Criamos o carrinho
+                        cart = new Cart();
+                    //Inicializar a lista de products order
+                        var lista = new Collection<ProductsOrder>();
+                    //Adicionamos o porductOrder a lista 
+                        lista.Add(productOrder);
+                    //Guardamos a lista no carrinho
+                        cart.productsOrders = lista;
+                    //Adicionamos o product order à BD
+                        db.ProdutosPedidos.Add(productOrder);
+                        db.Carrinho.Add(cart);
+                }
+                else //Se ja houver um carrinho
+                {
+                    var productOrder = new ProductsOrder();
+                    //Guardar o product ID
+                    productOrder.ProductID = productQuantity.ID;
+                    //Guardar a Quantidade
+                    productOrder.Quantidade = productQuantity.Quantidade;
+                    //Adicionar o productOrder ao carrinho
+                    cart.productsOrders.Add(productOrder);
+                    
+                    //Tenho de verificar se o product ja existir incremento apenas a quantidade ao produto que la esta
 
+                }
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
         public void setupCompanyIdViewBag()
         {
             var roles = db.Roles.Where(r => r.Name == RoleName.Company);
@@ -56,7 +109,7 @@ namespace eShopping.Controllers
                 var roleId = roles.First().Id;
                 var companyIds = db.Users.Where(u => u.Roles.Any(r => r.RoleId == roleId));
                 var company = companyIds.First();
-                ViewBag.CompanyID = new SelectList(companyIds, "ID", "Email");
+                ViewBag.ID_Empresa = new SelectList(companyIds, "ID", "Email");
             }
         }
         // GET: Products/Create
@@ -83,7 +136,6 @@ namespace eShopping.Controllers
                     ModelState.AddModelError("ID_Empresa", "This company already have this product!");
                 }
             }
-
             if (User.IsInRole(RoleName.Company))
             {
                 products.ID_Empresa = User.Identity.GetUserId();
@@ -127,14 +179,15 @@ namespace eShopping.Controllers
         public ActionResult Edit([Bind(Include = "ProductID,Nome_Produto,Stock,ID_Empresa,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
         {
             bool flag = false;
-            foreach (var i in db.Produtos)
-            {
-                if (i.Nome_Produto == products.Nome_Produto && i.ID_Empresa == products.ID_Empresa)
-                {
-                    flag = true;
-                    ModelState.AddModelError("ID_Empresa", "This company already have this product!");
-                }
-            }
+            //FALTA VERIFICACAO DO NOME
+            //foreach (var i in db.Produtos)
+            //{
+            //    if (i.Nome_Produto == products.Nome_Produto && i.ID_Empresa == products.ID_Empresa)
+            //    {
+            //        flag = true;
+            //        ModelState.AddModelError("ID_Empresa", "This company already have this product!");
+            //    }
+            //}
             if (ModelState.IsValid)
             {
                 if(flag == false) { 
@@ -143,7 +196,7 @@ namespace eShopping.Controllers
                 return RedirectToAction("Index");
                 }
             }
-           setupCompanyIdViewBag();
+            setupCompanyIdViewBag();
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }

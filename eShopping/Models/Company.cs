@@ -8,8 +8,12 @@ namespace eShopping.Models
 {
     public class Company
     {
-        [Key]
+        [EmailAddress]
+        public string Email { get; set; }
         public int ID { get; set; }
+
+        public string userID { get; set; }
+        [Required]
         public string Nome { get; set; }
 
         public ICollection<Order> Pedidos { get; set; }

@@ -170,10 +170,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandingPageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,8 +228,29 @@
     <Compile Include="Migrations\202012251944476_DataAnnotationCatedoriaIDRemoved.Designer.cs">
       <DependentUpon>202012251944476_DataAnnotationCatedoriaIDRemoved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012281854147_AddProductsOrderToOrder.cs" />
+    <Compile Include="Migrations\202012281854147_AddProductsOrderToOrder.Designer.cs">
+      <DependentUpon>202012281854147_AddProductsOrderToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012291530384_ADDStringIDToCompany.cs" />
+    <Compile Include="Migrations\202012291530384_ADDStringIDToCompany.Designer.cs">
+      <DependentUpon>202012291530384_ADDStringIDToCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012291546054_ADDEmpresasToIdentity.cs" />
+    <Compile Include="Migrations\202012291546054_ADDEmpresasToIdentity.Designer.cs">
+      <DependentUpon>202012291546054_ADDEmpresasToIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012291853229_AddCartModel.cs" />
+    <Compile Include="Migrations\202012291853229_AddCartModel.Designer.cs">
+      <DependentUpon>202012291853229_AddCartModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012291855331_AddCartModel1.cs" />
+    <Compile Include="Migrations\202012291855331_AddCartModel1.Designer.cs">
+      <DependentUpon>202012291855331_AddCartModel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Delivery.cs" />
@@ -241,6 +264,7 @@
     <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ProductQuantity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="adminlte\css\adminlte.css" />
@@ -2340,6 +2364,17 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\ListCostumerProducts.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Products\ButtonBuy.cshtml" />
+    <Content Include="Views\Carts\Create.cshtml" />
+    <Content Include="Views\Carts\Delete.cshtml" />
+    <Content Include="Views\Carts\Details.cshtml" />
+    <Content Include="Views\Carts\Edit.cshtml" />
+    <Content Include="Views\Carts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2396,6 +2431,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012251944476_DataAnnotationCatedoriaIDRemoved.resx">
       <DependentUpon>202012251944476_DataAnnotationCatedoriaIDRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012281854147_AddProductsOrderToOrder.resx">
+      <DependentUpon>202012281854147_AddProductsOrderToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012291530384_ADDStringIDToCompany.resx">
+      <DependentUpon>202012291530384_ADDStringIDToCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012291546054_ADDEmpresasToIdentity.resx">
+      <DependentUpon>202012291546054_ADDEmpresasToIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012291853229_AddCartModel.resx">
+      <DependentUpon>202012291853229_AddCartModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012291855331_AddCartModel1.resx">
+      <DependentUpon>202012291855331_AddCartModel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

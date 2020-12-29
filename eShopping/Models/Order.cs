@@ -17,8 +17,7 @@ namespace eShopping.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime Data_Venda { get; set; }
-       
-        public bool EstaFinalizado { get; set; } //o Pedido ja foi enviado pelo cliente a empresa
+      
         public Status Estado { get; set; }
 
         public Delivery Entrega { get; set; } 
@@ -26,6 +25,8 @@ namespace eShopping.Models
         public int EntregaID { get; set; }
 
         public Company Empresa { get; set; }
+
+        public ICollection<ProductsOrder> ProductsOrders { get; set; }
     }
 
 }
