@@ -2375,6 +2375,10 @@
     <Content Include="Views\Carts\Details.cshtml" />
     <Content Include="Views\Carts\Edit.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_User.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_Admin.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_Company.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_Employee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

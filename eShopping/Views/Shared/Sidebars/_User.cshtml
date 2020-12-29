@@ -1,0 +1,29 @@
+﻿<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Products")">
+                <i class="nav-icon fas fa-shopping-cart"></i>
+                <p>
+                    My Cart
+                </p>
+            </a>
+        </li>
+        <li class="nav-header">CATALOG</li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("ListCostumerProducts", "Products")">
+                <i class="nav-icon fas fa-store"></i>
+                <p>
+                    Products
+                </p>
+            </a>
+        </li>
+       
+        <li class="nav-header">SALES</li>
+        <li class="nav-item">
+            <a href="https://adminlte.io/docs/3.0" class="nav-link">
+                <i class="nav-icon fas fa-receipt"></i>
+                <p>Orders history</p>
+            </a>
+        </li>
+    </ul>
+</nav>

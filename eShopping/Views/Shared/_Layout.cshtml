@@ -1,4 +1,4 @@
-﻿
+﻿@using eShopping.Models
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -65,48 +65,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                 </ul>
 
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Products")">
-                                    <i class="nav-icon fas fa-shopping-cart"></i>
-                                    <p>
-                                       My Cart
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-header">CATALOG</li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Products")">
-                                    <i class="nav-icon fas fa-store"></i>
-                                    <p>
-                                        Products 
-                                    </p>
-                                </a>
-                            </li>
-                            @*<li class="nav-header">CATEGORIES</li>*@
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Categories")">
-                                    <i class="nav-icon fas fa-list-ul"></i>
-                                    <p>
-                                        Categories List
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-header">SALES</li>
-                            <li class="nav-item">
-                                <a href="https://adminlte.io/docs/3.0" class="nav-link">
-                                    <i class="nav-icon fas fa-receipt"></i>
-                                    <p>Sales history</p>
-                                </a>
-                            </li>
 
-                        </ul>
-                    </nav>
-                    <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
+                <!-- Sidebar Menu -->
+                @if (User.IsInRole(RoleName.User))
+                {
+                    @Html.Partial("Sidebars/_User")
+                }
+                else if (User.IsInRole(RoleName.Admin))
+                {
+                    @Html.Partial("Sidebars/_Admin")
+                }
+                else if (User.IsInRole(RoleName.Company))
+                {
+                    @Html.Partial("Sidebars/_Company")
+                }
+                else
+                {
+                    @Html.Partial("Sidebars/_Employee")
+                }
+                <!-- /.sidebar-menu -->
+
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
