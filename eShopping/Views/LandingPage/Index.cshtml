@@ -230,12 +230,16 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2 subtext to-animate">
                             <h3>Discover and enjoy our product catalog.</h3>
+                            <h3>
+                                Remember that to buy products on our platform, you need to register or login.
+                            </h3>
                         </div>
                     </div>
                     <div class="clearfix visible-sm-block visible-xs-block"></div>
                     <div class="row">
-                        <input id="pac-input" class="controls to-animate" type="text" placeholder="Search Box">
-                        <div id="map" class="to-animate"></div>
+                        <div class="col-md-4 col-md-offset-4">
+                            <a href="@Url.Action("ListAnonymous", "Products", routeValues: null)" class="btn btn-primary btn-block">View Products</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -256,10 +260,10 @@
             </div>
             <div class="row row-bottom-padded-sm">
                 <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service to-animate">
-                    <div class="fh5co-icon"><i class="icon-present"></i></div>
+                    <div class="fh5co-icon"><i class="icon-money"></i></div>
                     <div class="fh5co-desc">
-                        <h3>100% Free</h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+                        <h3>Buy the Products</h3>
+                        <p>Sign up or Regist to buy products. </p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service to-animate">
@@ -281,7 +285,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 single-animate animate-features-3">
-                    <a href="#" class="btn btn-primary btn-block">Sign Up</a>
+                    <a href="@Url.Action("Register", "Account", routeValues: null)" class="btn btn-primary btn-block">Sign Up</a>
                 </div>
             </div>
         </div>

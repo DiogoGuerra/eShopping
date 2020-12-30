@@ -1,0 +1,77 @@
+﻿@model IEnumerable<eShopping.Models.Products>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListAnonymous</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria.Nome_Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ID_Empresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstaNoCatalogo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstaEliminado)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome_Produto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_Empresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco_Produto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstaNoCatalogo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstaEliminado)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

@@ -21,12 +21,12 @@ namespace eShopping.Models
         public Status Estado { get; set; }
 
         public Delivery Entrega { get; set; } 
-       [Required]
+        [Required]
         public int EntregaID { get; set; }
 
         public Company Empresa { get; set; }
 
-        public ICollection<ProductsOrder> ProductsOrders { get; set; }
+        public bool PedidoEmAberto { get; set; }
     }
 
 }

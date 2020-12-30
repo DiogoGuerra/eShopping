@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eShopping.Models;
-using eShopping.ViewModels;
 using Microsoft.AspNet.Identity;
 
 
@@ -33,6 +32,15 @@ namespace eShopping.Controllers
                 produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria);
             return View(produtos.ToList());
         }
+        [AllowAnonymous]
+        public ActionResult ListAnonymous(string categoria)
+        {
+            var produtos = db.Produtos.Include(p => p.Categoria);
+
+            if (!string.IsNullOrEmpty(categoria))
+                produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria);
+            return View(produtos.ToList());
+        }
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -49,58 +57,29 @@ namespace eShopping.Controllers
             }
             return View(products);
         }
-        public ActionResult ButtonBuy(int id)
-        {
-            var productQuant = new ProductQuantity();
-            productQuant.ID = id;
-            return View(productQuant); 
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ButtonBuy([Bind(Include = "ID,Quantidade")] ProductQuantity productQuantity)
-        {
-            if (ModelState.IsValid)
-            {
-                var cart = db.Carrinho.SingleOrDefault();
-               // Se nao houver carrinho
-                if (cart == null)
-                {
-                    //Criar um novo product order
-                        var productOrder = new ProductsOrder();
-                    //Guardar o product ID
-                        productOrder.ProductID = productQuantity.ID;
-                    //Guardar a Quantidade
-                        productOrder.Quantidade = productQuantity.Quantidade;
-                        //Criamos o carrinho
-                        cart = new Cart();
-                    //Inicializar a lista de products order
-                        var lista = new Collection<ProductsOrder>();
-                    //Adicionamos o porductOrder a lista 
-                        lista.Add(productOrder);
-                    //Guardamos a lista no carrinho
-                        cart.productsOrders = lista;
-                    //Adicionamos o product order à BD
-                        db.ProdutosPedidos.Add(productOrder);
-                        db.Carrinho.Add(cart);
-                }
-                else //Se ja houver um carrinho
-                {
-                    var productOrder = new ProductsOrder();
-                    //Guardar o product ID
-                    productOrder.ProductID = productQuantity.ID;
-                    //Guardar a Quantidade
-                    productOrder.Quantidade = productQuantity.Quantidade;
-                    //Adicionar o productOrder ao carrinho
-                    cart.productsOrders.Add(productOrder);
+        //public ActionResult ButtonBuy(int id)
+        //{
+        //    var productQuant = new ProductQuantity();
+        //    productQuant.ID = id;
+        //    return View(productQuant); 
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ButtonBuy([Bind(Include = "ID,Quantidade")] ProductQuantity productQuantity)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        }
+        //        else //Se ja houver um carrinho
+        //        {
                     
-                    //Tenho de verificar se o product ja existir incremento apenas a quantidade ao produto que la esta
 
-                }
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+        //        }
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View();
+        //}
         public void setupCompanyIdViewBag()
         {
             var roles = db.Roles.Where(r => r.Name == RoleName.Company);
