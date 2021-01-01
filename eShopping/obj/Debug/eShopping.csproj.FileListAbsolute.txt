@@ -210,12 +210,7 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\bin\Microsoft.Owin.Security.Mic
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csprojAssemblyReference.cache
-C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.CoreCompileInputs.cache
-C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.CopyComplete
-C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.dll
-C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.pdb
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.InitialCreate.resources
-C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.GenerateResource.cache
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.DataModelsTabels.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.SeedUsers.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.DataModelsTabels1.resources
@@ -236,3 +231,8 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.UpdatePriceToDouble.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.CompanyIDToString.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.RemoveRequiredDate.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.GenerateResource.cache
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.dll
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.pdb

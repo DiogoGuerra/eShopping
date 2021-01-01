@@ -16,7 +16,7 @@ namespace eShopping.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
 
         // GET: Products
         public ActionResult Index()
@@ -59,13 +59,13 @@ namespace eShopping.Controllers
             return View(products);
         }
 
-       // Products produto = null;
+        // Products produto = null;
         public ActionResult ButtonBuy(int id)
         {
             ProductsOrder produtoPedido = new ProductsOrder();
 
             produtoPedido.ProductID = id;
-       
+
             return View(produtoPedido);
         }
 
@@ -79,18 +79,25 @@ namespace eShopping.Controllers
             Products produto = db.Produtos.Find(ProdPedido.ProductID);
             if (ModelState.IsValid)
             {
-                //ProdPedido.ProductID = produto.ProductID;
                 int flag = 0;
-                foreach(var i in db.Pedidos)
+                //if (produto.Stock >= ProdPedido.Quantidade)
+                //{
+                //ProdPedido.ProductID = produto.ProductID;
+                var pedi = db.Pedidos.Include(p => p.Empresa);
+                foreach (var i in pedi)
                 {
-                    if(i.Empresa.Nome == produto.ID_Empresa)
+                    // Se encontrar algum pedido da empresa
+                    if (i.Empresa.userID == produto.ID_Empresa)
                     {
-                        if(i.PedidoEmAberto == true)
+                        //Se o pedido tiver aberto, adicionamos
+                        if (i.PedidoEmAberto == true)
                         {
                             ProdPedido.OrderID = i.OrderID;
                             ProdPedido.Preco_Produto = produto.Preco_Produto;
+
                             flag = 1;
                         }
+                        //Caso contrario criamos um 
                         else
                         {
                             Order novopedido = new Order();
@@ -98,15 +105,18 @@ namespace eShopping.Controllers
                             novopedido.Empresa = empresa;
                             novopedido.ID_Cliente = User.Identity.GetUserId();
                             novopedido.PedidoEmAberto = true;
+                            novopedido.Data_Venda = DateTime.Now;
+                            novopedido.EntregaID = 2;
                             ProdPedido.OrderID = novopedido.OrderID;
                             ProdPedido.Preco_Produto = produto.Preco_Produto;
                             db.Pedidos.Add(novopedido);
                             flag = 1;
                         }
-                            
+
                     }
-                } 
-                if(flag == 0)
+                }
+                //Se nao houver nenhum pedido da empresa desejada
+                if (flag == 0)
                 {
                     Order novopedido = new Order();
                     Company empresa = db.Empresas.Find(produto.ID_Empresa);
@@ -120,13 +130,19 @@ namespace eShopping.Controllers
                     db.Pedidos.Add(novopedido);
                 }
                 db.ProdutosPedidos.Add(ProdPedido);
-          
-                //Queremos criar uma novo product order 
+                produto.Stock -= ProdPedido.Quantidade;
+                //}
+                //else
+                //{
+                //    //DAR ERRO
+                //}
+
             }
+            db.Entry(produto).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-    public void setupCompanyIdViewBag()
+        public void setupCompanyIdViewBag()
         {
             var roles = db.Roles.Where(r => r.Name == RoleName.Company);
             if (roles.Any())
@@ -215,10 +231,11 @@ namespace eShopping.Controllers
             //}
             if (ModelState.IsValid)
             {
-                if(flag == false) { 
-                db.Entry(products).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (flag == false)
+                {
+                    db.Entry(products).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
             setupCompanyIdViewBag();
