@@ -23,7 +23,7 @@ namespace eShopping.Models
         [Required]
         public int Quantidade { get; set; }
 
-        public int Preco_Produto { get; set; } //Vamos guardar este preço para depois de haver promoções, mantermos o registo do preço certo
+        public double Preco_Produto { get; set; } //Vamos guardar este preço para depois de haver promoções, mantermos o registo do preço certo
     
     }
 }

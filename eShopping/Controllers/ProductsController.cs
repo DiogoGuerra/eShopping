@@ -16,6 +16,7 @@ namespace eShopping.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        
 
         // GET: Products
         public ActionResult Index()
@@ -57,30 +58,75 @@ namespace eShopping.Controllers
             }
             return View(products);
         }
-        //public ActionResult ButtonBuy(int id)
-        //{
-        //    var productQuant = new ProductQuantity();
-        //    productQuant.ID = id;
-        //    return View(productQuant); 
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult ButtonBuy([Bind(Include = "ID,Quantidade")] ProductQuantity productQuantity)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        }
-        //        else //Se ja houver um carrinho
-        //        {
-                    
 
-        //        }
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View();
-        //}
-        public void setupCompanyIdViewBag()
+       // Products produto = null;
+        public ActionResult ButtonBuy(int id)
+        {
+            ProductsOrder produtoPedido = new ProductsOrder();
+
+            produtoPedido.ProductID = id;
+       
+            return View(produtoPedido);
+        }
+
+        //O ID tem de ser string mas dps quando quero guardar o role nao dá
+        //De resto, ja guardo no Product Order o ID do produto passado por argumento, e agora e so fazer o resto no httppost
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ButtonBuy([Bind(Include = "ProductID,Quantidade")] ProductsOrder ProdPedido)
+        {
+            //Products produto = new Products();
+            Products produto = db.Produtos.Find(ProdPedido.ProductID);
+            if (ModelState.IsValid)
+            {
+                //ProdPedido.ProductID = produto.ProductID;
+                int flag = 0;
+                foreach(var i in db.Pedidos)
+                {
+                    if(i.Empresa.Nome == produto.ID_Empresa)
+                    {
+                        if(i.PedidoEmAberto == true)
+                        {
+                            ProdPedido.OrderID = i.OrderID;
+                            ProdPedido.Preco_Produto = produto.Preco_Produto;
+                            flag = 1;
+                        }
+                        else
+                        {
+                            Order novopedido = new Order();
+                            Company empresa = db.Empresas.Find(produto.ID_Empresa);
+                            novopedido.Empresa = empresa;
+                            novopedido.ID_Cliente = User.Identity.GetUserId();
+                            novopedido.PedidoEmAberto = true;
+                            ProdPedido.OrderID = novopedido.OrderID;
+                            ProdPedido.Preco_Produto = produto.Preco_Produto;
+                            db.Pedidos.Add(novopedido);
+                            flag = 1;
+                        }
+                            
+                    }
+                } 
+                if(flag == 0)
+                {
+                    Order novopedido = new Order();
+                    Company empresa = db.Empresas.Find(produto.ID_Empresa);
+                    novopedido.Empresa = empresa;
+                    novopedido.ID_Cliente = User.Identity.GetUserId();
+                    novopedido.PedidoEmAberto = true;
+                    novopedido.Data_Venda = DateTime.Now;
+                    novopedido.EntregaID = 2;
+                    ProdPedido.OrderID = novopedido.OrderID;
+                    ProdPedido.Preco_Produto = produto.Preco_Produto;
+                    db.Pedidos.Add(novopedido);
+                }
+                db.ProdutosPedidos.Add(ProdPedido);
+          
+                //Queremos criar uma novo product order 
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    public void setupCompanyIdViewBag()
         {
             var roles = db.Roles.Where(r => r.Name == RoleName.Company);
             if (roles.Any())

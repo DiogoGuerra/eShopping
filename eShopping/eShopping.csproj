@@ -171,11 +171,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DeliveriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandingPageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductsOrdersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,6 +252,18 @@
     <Compile Include="Migrations\202012301933280_NewModelsWithProductOrder.cs" />
     <Compile Include="Migrations\202012301933280_NewModelsWithProductOrder.Designer.cs">
       <DependentUpon>202012301933280_NewModelsWithProductOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012302214590_UpdatePriceToDouble.cs" />
+    <Compile Include="Migrations\202012302214590_UpdatePriceToDouble.Designer.cs">
+      <DependentUpon>202012302214590_UpdatePriceToDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101011909563_CompanyIDToString.cs" />
+    <Compile Include="Migrations\202101011909563_CompanyIDToString.Designer.cs">
+      <DependentUpon>202101011909563_CompanyIDToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101011918389_RemoveRequiredDate.cs" />
+    <Compile Include="Migrations\202101011918389_RemoveRequiredDate.Designer.cs">
+      <DependentUpon>202101011918389_RemoveRequiredDate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2370,12 +2384,17 @@
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Products\ButtonBuy.cshtml" />
     <Content Include="Views\Shared\Sidebars\_User.cshtml" />
     <Content Include="Views\Shared\Sidebars\_Admin.cshtml" />
     <Content Include="Views\Shared\Sidebars\_Company.cshtml" />
     <Content Include="Views\Shared\Sidebars\_Employee.cshtml" />
     <Content Include="Views\Products\ListAnonymous.cshtml" />
+    <Content Include="Views\Products\ButtonBuy.cshtml" />
+    <Content Include="Views\Deliveries\Create.cshtml" />
+    <Content Include="Views\Deliveries\Index.cshtml" />
+    <Content Include="Views\Deliveries\Delete.cshtml" />
+    <Content Include="Views\ProductsOrders\Index.cshtml" />
+    <Content Include="Views\ProductsOrders\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2450,6 +2469,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012301933280_NewModelsWithProductOrder.resx">
       <DependentUpon>202012301933280_NewModelsWithProductOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012302214590_UpdatePriceToDouble.resx">
+      <DependentUpon>202012302214590_UpdatePriceToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101011909563_CompanyIDToString.resx">
+      <DependentUpon>202101011909563_CompanyIDToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101011918389_RemoveRequiredDate.resx">
+      <DependentUpon>202101011918389_RemoveRequiredDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

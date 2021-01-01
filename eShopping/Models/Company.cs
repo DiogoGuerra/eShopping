@@ -10,8 +10,7 @@ namespace eShopping.Models
     {
         [EmailAddress]
         public string Email { get; set; }
-        public int ID { get; set; }
-
+        [Key]
         public string userID { get; set; }
         [Required]
         public string Nome { get; set; }

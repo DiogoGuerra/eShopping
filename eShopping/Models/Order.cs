@@ -13,7 +13,7 @@ namespace eShopping.Models
         public int OrderID { get; set; }
         [Required]
         public string ID_Cliente { get; set; } 
-        [Required]
+        
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime Data_Venda { get; set; }
