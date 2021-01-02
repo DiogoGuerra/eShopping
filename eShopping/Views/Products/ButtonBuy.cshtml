@@ -10,7 +10,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
        
     <div class="form-group">
-        @Html.HiddenFor(model => model.ProductID);
+        @Html.HiddenFor(model => model.ProductID)
         @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control" } })
@@ -28,5 +28,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ListCostumerProducts")
 </div>

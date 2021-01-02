@@ -59,7 +59,6 @@ namespace eShopping.Controllers
             return View(products);
         }
 
-        // Products produto = null;
         public ActionResult ButtonBuy(int id)
         {
             ProductsOrder produtoPedido = new ProductsOrder();
@@ -69,19 +68,20 @@ namespace eShopping.Controllers
             return View(produtoPedido);
         }
 
-        //O ID tem de ser string mas dps quando quero guardar o role nao dá
-        //De resto, ja guardo no Product Order o ID do produto passado por argumento, e agora e so fazer o resto no httppost
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ButtonBuy([Bind(Include = "ProductID,Quantidade")] ProductsOrder ProdPedido)
         {
             //Products produto = new Products();
             Products produto = db.Produtos.Find(ProdPedido.ProductID);
+            if (produto.Stock < ProdPedido.Quantidade)
+            {
+                ModelState.AddModelError("Quantidade", "This company already have this product!");
+            }
             if (ModelState.IsValid)
             {
                 int flag = 0;
-                //if (produto.Stock >= ProdPedido.Quantidade)
-                //{
                 //ProdPedido.ProductID = produto.ProductID;
                 var pedi = db.Pedidos.Include(p => p.Empresa);
                 foreach (var i in pedi)
@@ -94,8 +94,12 @@ namespace eShopping.Controllers
                         {
                             ProdPedido.OrderID = i.OrderID;
                             ProdPedido.Preco_Produto = produto.Preco_Produto;
-
-                            flag = 1;
+                            //fazer um find a procurar o produto
+                            //ProductsOrder p = db.ProdutosPedidos.Where(c => c.Produto.ProductID == produto.ProductID).SingleOrDefault();
+                            //p.Quantidade += ProdPedido.Quantidade;
+                            //db.Entry(ProdPedido).State = EntityState.Modified;
+                         /*db.SaveChanges();*/
+                            flag = 2;
                         }
                         //Caso contrario criamos um 
                         else
@@ -110,9 +114,9 @@ namespace eShopping.Controllers
                             ProdPedido.OrderID = novopedido.OrderID;
                             ProdPedido.Preco_Produto = produto.Preco_Produto;
                             db.Pedidos.Add(novopedido);
+                            db.ProdutosPedidos.Add(ProdPedido);
                             flag = 1;
                         }
-
                     }
                 }
                 //Se nao houver nenhum pedido da empresa desejada
@@ -128,19 +132,27 @@ namespace eShopping.Controllers
                     ProdPedido.OrderID = novopedido.OrderID;
                     ProdPedido.Preco_Produto = produto.Preco_Produto;
                     db.Pedidos.Add(novopedido);
+                    db.ProdutosPedidos.Add(ProdPedido);
                 }
-                db.ProdutosPedidos.Add(ProdPedido);
-                produto.Stock -= ProdPedido.Quantidade;
-                //}
-                //else
-                //{
-                //    //DAR ERRO
-                //}
+                if (flag == 2)
+                {
+                    var prodped = db.ProdutosPedidos.Include(p => p.Produto);
+                    foreach (var d in prodped)
+                    {
+                        if (d.Produto == produto)
+                        {
+                            d.Quantidade += ProdPedido.Quantidade;
+                            db.Entry(d).State = EntityState.Modified; 
+                        }
+                    }
+                }
 
+                produto.Stock -= ProdPedido.Quantidade;
+                db.Entry(produto).State = EntityState.Modified;
+                db.SaveChanges();
             }
-            db.Entry(produto).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            
+            return RedirectToAction("ListCostumerProducts");
         }
         public void setupCompanyIdViewBag()
         {
