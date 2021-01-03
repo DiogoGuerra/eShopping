@@ -4,58 +4,67 @@
     ViewBag.Title = "ListCostumerProducts";
 }
 
-<h2>ListCostumerProducts</h2>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<div class="content">
+    <div class="container-fluid">
+        <table id="products1" class="table table-bordered table-striped dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Categoria.Nome_Categoria)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome_Produto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Stock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID_Empresa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Preco_Produto)
+                    </th>
+                    <th> </th>
+                </tr>
+            </thead>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Categoria.Nome_Categoria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome_Produto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ID_Empresa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Preco_Produto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstaNoCatalogo)
-        </th>
-        <th></th>
-    </tr>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome_Produto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Stock)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID_Empresa)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Preco_Produto)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Buy", "ButtonBuy", new { id = item.ProductID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome_Produto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID_Empresa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preco_Produto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstaNoCatalogo)
-        </td>
-        <td>
-            @Html.ActionLink("Buy", "ButtonBuy", new { id=item.ProductID })
-        </td>
-    </tr>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#products1").DataTable();
+        });
+    </script>
 }
 
-</table>

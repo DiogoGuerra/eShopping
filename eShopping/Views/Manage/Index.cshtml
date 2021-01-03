@@ -1,11 +1,26 @@
 ﻿@model eShopping.Models.IndexViewModel
-@{
-    ViewBag.Title = "Manage Account";
-}
 
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="jumbotron">
+            @if (Request.IsAuthenticated)
+            {
+                <h1>Welcome to your eShopping Account @User.Identity.Name</h1>
+            }
+            else
+            {
+                <h1>Welcome to eShopping</h1>
+            }
+
+        </div>
+    </div>
+</div>
 <div class="content">
     <div class="container-fluid">
         <p class="text-success">@ViewBag.StatusMessage</p>
+        @if (Request.IsAuthenticated) { 
         <h5>Change your account settings</h5>
         <hr />
         <dl class="dl-horizontal">
@@ -24,5 +39,6 @@
             </dd>
 
         </dl>
+        }
     </div>
 </div>

@@ -94,12 +94,7 @@ namespace eShopping.Controllers
                         {
                             ProdPedido.OrderID = i.OrderID;
                             ProdPedido.Preco_Produto = produto.Preco_Produto;
-                            //fazer um find a procurar o produto
-                            //ProductsOrder p = db.ProdutosPedidos.Where(c => c.Produto.ProductID == produto.ProductID).SingleOrDefault();
-                            //p.Quantidade += ProdPedido.Quantidade;
-                            //db.Entry(ProdPedido).State = EntityState.Modified;
-                         /*db.SaveChanges();*/
-                            flag = 2;
+                            flag = 2; //verificar se o produto ja existe nos pedidos em aberto
                         }
                         //Caso contrario criamos um 
                         else
@@ -136,14 +131,21 @@ namespace eShopping.Controllers
                 }
                 if (flag == 2)
                 {
+                    int existe = 0;
                     var prodped = db.ProdutosPedidos.Include(p => p.Produto);
                     foreach (var d in prodped)
                     {
                         if (d.Produto == produto)
                         {
+                            existe = 1;
                             d.Quantidade += ProdPedido.Quantidade;
                             db.Entry(d).State = EntityState.Modified; 
                         }
+                    }
+                    if (existe == 0)
+                    {
+                        //Temos de adicionar o produto se nao houver o que ele quer adicionar
+
                     }
                 }
 

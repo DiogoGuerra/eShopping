@@ -2395,6 +2395,7 @@
     <Content Include="Views\Deliveries\Delete.cshtml" />
     <Content Include="Views\ProductsOrders\Index.cshtml" />
     <Content Include="Views\ProductsOrders\Cart.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_Anon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

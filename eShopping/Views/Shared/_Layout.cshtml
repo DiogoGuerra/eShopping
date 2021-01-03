@@ -28,20 +28,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Home", "Index", "Manage", null, new { @class = "nav-link" })
                 </li>
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav navbar-right" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">Log off</a>
-                    </li>
-                }
-            </ul>
+            @if (Request.IsAuthenticated)
+            {
+                <ul class="navbar-nav ml-auto">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">Log off</a>
+                        </li>
+                    }
+                </ul>
+            }
+
         </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
@@ -79,12 +83,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {
                     @Html.Partial("Sidebars/_Company")
                 }
-                else
+                
+                else if(User.IsInRole(RoleName.Employee))
                 {
                     @Html.Partial("Sidebars/_Employee")
                 }
+                else
+                {
+                    @Html.Partial("Sidebars/_Anon")
+                }
                 <!-- /.sidebar-menu -->
-
+                </div>
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
@@ -96,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-sm-6">
                             <h1 class="m-0 text-dark">@ViewBag.Title</h1>
                         </div><!-- /.col -->
-                        <div class="col-sm-6">
+                        <!--<div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 @if (@ViewContext.RouteData.Values["controller"].ToString() != "Home" ||
                                     @ViewContext.RouteData.Values["action"].ToString() != "Index")
@@ -107,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 }
                                 <li class="breadcrumb-item active">@ViewBag.Title</li>
                             </ol>
-                        </div><!-- /.col -->
+                        </div>--><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
