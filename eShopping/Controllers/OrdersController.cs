@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eShopping.Models;
+using Microsoft.AspNet.Identity;
 
 namespace eShopping.Controllers
 {
@@ -18,6 +19,37 @@ namespace eShopping.Controllers
         public ActionResult Index()
         {
             var pedidos = db.Pedidos.Include(o => o.Entrega);
+            return View(pedidos.ToList());
+        }
+
+        public ActionResult UserOrders()
+        {
+            string userid = User.Identity.GetUserId();
+            var pedidos = db.Pedidos.Include(o => o.Entrega).Where(p => p.ID_Cliente  == userid).Where(p => p.PedidoEmAberto == true);
+            return View(pedidos.ToList());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FUserOrders([Bind(Include = "OrderID,ID_Cliente,Data_Venda,EstaFinalizado,EntregaID")] Order order)
+        {
+           
+            if (ModelState.IsValid)
+            {
+                order.PedidoEmAberto = false;
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
+            return View(order);
+        }
+
+        public ActionResult OrdersHistory()
+        {
+            //fALTA LISTAR OS PRODUTOS
+            string userid = User.Identity.GetUserId();
+            var pedidos = db.Pedidos.Include(o => o.Entrega).Where(p => p.ID_Cliente == userid).Where(c => c.PedidoEmAberto == false);
             return View(pedidos.ToList());
         }
 

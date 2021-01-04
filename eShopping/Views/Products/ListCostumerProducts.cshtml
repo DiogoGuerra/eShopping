@@ -22,7 +22,7 @@
                         @Html.DisplayNameFor(model => model.Stock)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID_Empresa)
+                        @Html.DisplayNameFor(model => model.Empresa.Nome)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Preco_Produto)
@@ -45,7 +45,7 @@
                             @Html.DisplayFor(modelItem => item.Stock)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID_Empresa)
+                            @Html.DisplayFor(modelItem => item.Empresa.Nome)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Preco_Produto)

@@ -29,6 +29,14 @@ namespace eShopping.Controllers
             return View(produtosPedidos.ToList());
         }
 
+        public ActionResult OrderDetails(int id)
+        {
+            //var order = db.Pedidos.Find(id);
+            var produtos = db.ProdutosPedidos.Include(p => p.Produto).Include(p => p.Pedido).Where(p => p.Pedido.OrderID == id);
+            return View(produtos.ToList());
+        }
+
+
         // GET: ProductsOrders/Details/5
         public ActionResult Details(int? id)
         {

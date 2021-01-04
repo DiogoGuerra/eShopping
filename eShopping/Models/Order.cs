@@ -27,6 +27,8 @@ namespace eShopping.Models
         public Company Empresa { get; set; }
 
         public bool PedidoEmAberto { get; set; }
+
+        public double Preco_Total { get; set; }
     }
 
 }

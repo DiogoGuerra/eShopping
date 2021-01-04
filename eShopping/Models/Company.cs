@@ -15,6 +15,7 @@ namespace eShopping.Models
         [Required]
         public string Nome { get; set; }
 
+        public ICollection<Products> Produtos { get; set; }
         public ICollection<Order> Pedidos { get; set; }
     }
 }

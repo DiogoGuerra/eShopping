@@ -265,6 +265,26 @@
     <Compile Include="Migrations\202101011918389_RemoveRequiredDate.Designer.cs">
       <DependentUpon>202101011918389_RemoveRequiredDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101031841257_EmptyMigration.cs" />
+    <Compile Include="Migrations\202101031841257_EmptyMigration.Designer.cs">
+      <DependentUpon>202101031841257_EmptyMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101031858169_AddEmpresaToProduct.cs" />
+    <Compile Include="Migrations\202101031858169_AddEmpresaToProduct.Designer.cs">
+      <DependentUpon>202101031858169_AddEmpresaToProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101032007240_temdedar.cs" />
+    <Compile Include="Migrations\202101032007240_temdedar.Designer.cs">
+      <DependentUpon>202101032007240_temdedar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101032025472_teste2.cs" />
+    <Compile Include="Migrations\202101032025472_teste2.Designer.cs">
+      <DependentUpon>202101032025472_teste2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101032338070_AddPrecoTotalToOrder.cs" />
+    <Compile Include="Migrations\202101032338070_AddPrecoTotalToOrder.Designer.cs">
+      <DependentUpon>202101032338070_AddPrecoTotalToOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -2396,6 +2416,10 @@
     <Content Include="Views\ProductsOrders\Index.cshtml" />
     <Content Include="Views\ProductsOrders\Cart.cshtml" />
     <Content Include="Views\Shared\Sidebars\_Anon.cshtml" />
+    <Content Include="Views\Orders\UserOrders.cshtml" />
+    <Content Include="Views\Orders\asdfsd.cshtml" />
+    <Content Include="Views\Orders\OrdersHistory.cshtml" />
+    <Content Include="Views\ProductsOrders\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2479,6 +2503,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101011918389_RemoveRequiredDate.resx">
       <DependentUpon>202101011918389_RemoveRequiredDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101031841257_EmptyMigration.resx">
+      <DependentUpon>202101031841257_EmptyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101031858169_AddEmpresaToProduct.resx">
+      <DependentUpon>202101031858169_AddEmpresaToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101032007240_temdedar.resx">
+      <DependentUpon>202101032007240_temdedar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101032025472_teste2.resx">
+      <DependentUpon>202101032025472_teste2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101032338070_AddPrecoTotalToOrder.resx">
+      <DependentUpon>202101032338070_AddPrecoTotalToOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

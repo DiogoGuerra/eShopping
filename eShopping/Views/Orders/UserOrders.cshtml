@@ -1,0 +1,59 @@
+﻿@model IEnumerable<eShopping.Models.Order>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserOrders</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entrega.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco_Total)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.OrderID)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entrega.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco_Total)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+    <div>
+        <div class="col-md-offset-2 col-md-10">
+            <asp:Button ID="Button1" runat="server" onclick="FUserOrders" Text="Button" />
+        </div>
+    </div>
+</body>
+
+
+</html>
+
+
+

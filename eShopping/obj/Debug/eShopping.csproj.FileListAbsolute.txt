@@ -209,7 +209,6 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\bin\Microsoft.Owin.Security.Twi
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csprojAssemblyReference.cache
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.InitialCreate.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.DataModelsTabels.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.SeedUsers.resources
@@ -231,8 +230,14 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.UpdatePriceToDouble.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.CompanyIDToString.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.RemoveRequiredDate.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.EmptyMigration.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddEmpresaToProduct.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.temdedar.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.GenerateResource.cache
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.CoreCompileInputs.cache
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csproj.CopyComplete
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.dll
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.pdb
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.teste2.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddPrecoTotalToOrder.resources
