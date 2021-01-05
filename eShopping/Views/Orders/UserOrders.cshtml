@@ -5,9 +5,7 @@
     <title>UserOrders</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+
     <table class="table">
         <tr>
             <th>
@@ -41,9 +39,10 @@
                 </td>
             </tr>
         }
-
     </table>
-
+    <p>
+        @Html.ActionLink("Checkout", "FUserOrders")
+    </p>
 
     <div>
         <div class="col-md-offset-2 col-md-10">

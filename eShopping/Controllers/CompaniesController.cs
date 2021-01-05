@@ -20,12 +20,6 @@ namespace eShopping.Controllers
             return View(db.Empresas.Where(e => e.EstaEliminado == false).ToList());
         }
 
-        public ActionResult listaclientes(string returnUrl)
-        {
-        
-            var clientes = db.Users.Where(p => p.Roles == User);
-            return View(clientes.ToList());
-        }
         // GET: Companies/Details/5
         public ActionResult Details(string id)
         {
@@ -93,6 +87,13 @@ namespace eShopping.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(company).State = EntityState.Modified;
+                foreach (var i in db.Users)
+                {
+                    if (i.Id == company.userID)
+                    {
+                        i.UserName = company.Nome;
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -148,10 +149,61 @@ namespace eShopping.Controllers
         [NonAction]
         private bool NameCompanyRepeted(Company empresa)
         {
-            if (db.Empresas.Where(e => e.Nome == empresa.Nome).Where(e => e.EstaEliminado == false).FirstOrDefault() == null)
+            if (db.Empresas.Where(e => e.Nome == empresa.Nome).FirstOrDefault() == null)
                 return false;
             return true;
         }
+        [NonAction]
+        private bool NameClientRepeted(ApplicationUser user)
+        {
+            if (db.Users.Where(e => e.UserName == user.UserName).FirstOrDefault() == null)
+                return false;
+            return true;
+        }
+
+        public ActionResult Listaclientes()
+        {
+
+            var usr_role = db.Roles.Single(x => x.Name == "user").Id;
+            //var clientes = db.Users.Include(r => r.Roles));
+            //var u = clientes.Where(c => c.Roles == usr_role);
+            var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(usr_role)).ToList();
+            return View(users);
+        }
+        public ActionResult EditaCliente(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Companies/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditaCliente([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnable,LockoutEndDateUtc,LockoutEnable,AcessFailedCount,UserName")] ApplicationUser user)
+        {
+            if (NameClientRepeted(user))
+            {
+                ModelState.AddModelError("UserName", "This name already exists!");
+            }
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("listaclientes");
+            }
+            return View(user);
+        }
+
     }
 }
 

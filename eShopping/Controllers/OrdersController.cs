@@ -28,21 +28,29 @@ namespace eShopping.Controllers
             var pedidos = db.Pedidos.Include(o => o.Entrega).Where(p => p.ID_Cliente  == userid).Where(p => p.PedidoEmAberto == true);
             return View(pedidos.ToList());
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult FUserOrders([Bind(Include = "OrderID,ID_Cliente,Data_Venda,EstaFinalizado,EntregaID")] Order order)
+        //[ValidateAntiForgeryToken]
+        public ActionResult FUserOrders()
         {
-           
-            if (ModelState.IsValid)
-            {
-                order.PedidoEmAberto = false;
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+            foreach( var i in db.Pedidos) {
+                if(i.PedidoEmAberto == true && i.ID_Cliente == User.Identity.GetUserId())
+                {
+                    i.PedidoEmAberto = false;
+                }
             }
 
-            ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
-            return View(order);
+            db.SaveChanges();
+            return RedirectToAction("ListCostumerProduct","Products");
+            //if (ModelState.IsValid)
+            //{
+            //order.PedidoEmAberto = false;
+            //    db.Entry(order).State = EntityState.Modified;
+            //    db.SaveChanges();
+                
+            ////}
+
+            //ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
+            //return View(order);
         }
 
         public ActionResult OrdersHistory()

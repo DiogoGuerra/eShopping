@@ -2429,6 +2429,7 @@
     <Content Include="Views\Companies\Delete.cshtml" />
     <Content Include="Views\Companies\listaclientes.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\EditaCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
