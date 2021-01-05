@@ -39,5 +39,7 @@ namespace eShopping.Models
         public DbSet<ProductsOrder> ProdutosPedidos { get; set; }
 
         public DbSet<Company> Empresas { get; set; }
+
+        //public System.Data.Entity.DbSet<eShopping.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

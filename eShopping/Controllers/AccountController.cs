@@ -62,6 +62,8 @@ namespace eShopping.Controllers
             return View();
         }
 
+        
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -183,7 +185,7 @@ namespace eShopping.Controllers
 
                     if(model.RoleName == RoleName.Company)
                     {
-                        Company company = new Company {userID = user.Id, Nome = model.Name, Email = model.Email };
+                        Company company = new Company {userID = user.Id, Nome = model.Name, Email = model.Email, EstaEliminado = false };
                         db.Empresas.Add(company);
                         db.SaveChanges();
                     }
