@@ -17,7 +17,7 @@ namespace eShopping.Controllers
         // GET: Companies
         public ActionResult Index()
         {
-            return View(db.Empresas.ToList());
+            return View(db.Empresas.Where(e => e.EstaEliminado == false).ToList());
         }
 
         public ActionResult listaclientes(string returnUrl)
@@ -86,6 +86,10 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "userID,Email,Nome")] Company company)
         {
+            if (NameCompanyRepeted(company))
+            {
+                ModelState.AddModelError("Nome", "This name already exists!");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(company).State = EntityState.Modified;
@@ -140,5 +144,15 @@ namespace eShopping.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [NonAction]
+        private bool NameCompanyRepeted(Company empresa)
+        {
+            if (db.Empresas.Where(e => e.Nome == empresa.Nome).Where(e => e.EstaEliminado == false).FirstOrDefault() == null)
+                return false;
+            return true;
+        }
     }
 }
+
+
