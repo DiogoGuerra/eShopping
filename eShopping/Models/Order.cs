@@ -29,6 +29,8 @@ namespace eShopping.Models
         public bool PedidoEmAberto { get; set; }
 
         public double Preco_Total { get; set; }
+
+        public Order() { }
     }
 
 }

@@ -91,7 +91,7 @@ namespace eShopping.Controllers
             {
                 int flag = 0;
                 //ProdPedido.ProductID = produto.ProductID;
-                var pedi = db.Pedidos.Include(p => p.Empresa);
+                var pedi = db.Pedidos.Include(p => p.Empresa)/*.Where(p => p.PedidoEmAberto ==true)*/;
                 foreach (var i in pedi)
                 {
                     // Se encontrar algum pedido da empresa
@@ -108,19 +108,19 @@ namespace eShopping.Controllers
                         //Caso contrario criamos um 
                         else
                         {
-                            Order novopedido = new Order();
-                            Company empresa = db.Empresas.Find(produto.ID_Empresa);
-                            novopedido.Empresa = empresa;
-                            novopedido.ID_Cliente = User.Identity.GetUserId();
-                            novopedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
-                            novopedido.PedidoEmAberto = true;
-                            novopedido.Data_Venda = DateTime.Now;
-                            novopedido.EntregaID = 2;
-                            ProdPedido.OrderID = novopedido.OrderID;
-                            ProdPedido.Preco_Produto = produto.Preco_Produto;
-                            db.Pedidos.Add(novopedido);
-                            db.ProdutosPedidos.Add(ProdPedido);
-                            flag = 1;
+                            //Order novopedido = new Order();
+                            //Company empresa = db.Empresas.Find(produto.ID_Empresa);
+                            //novopedido.Empresa = empresa;
+                            //novopedido.ID_Cliente = User.Identity.GetUserId();
+                            //novopedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                            //novopedido.PedidoEmAberto = true;
+                            //novopedido.Data_Venda = DateTime.Now;
+                            //novopedido.EntregaID = 2;
+                            //ProdPedido.OrderID = novopedido.OrderID;
+                            //ProdPedido.Preco_Produto = produto.Preco_Produto;
+                            //db.Pedidos.Add(novopedido);
+                            //db.ProdutosPedidos.Add(ProdPedido);
+                            flag = 0;
                         }
                     }
                 }

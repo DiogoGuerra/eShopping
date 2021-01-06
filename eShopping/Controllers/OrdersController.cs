@@ -40,17 +40,7 @@ namespace eShopping.Controllers
             }
 
             db.SaveChanges();
-            return RedirectToAction("ListCostumerProduct","Products");
-            //if (ModelState.IsValid)
-            //{
-            //order.PedidoEmAberto = false;
-            //    db.Entry(order).State = EntityState.Modified;
-            //    db.SaveChanges();
-                
-            ////}
-
-            //ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
-            //return View(order);
+            return RedirectToAction("ListCostumerProducts","Products");
         }
 
         public ActionResult OrdersHistory()
