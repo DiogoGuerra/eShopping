@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<eShopping.Models.Company>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -30,8 +30,8 @@
     </td>*@
 
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.userID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.userID })
+        @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.CompanyId })
     </td>
 </tr>
 }

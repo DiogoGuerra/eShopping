@@ -29,9 +29,8 @@
                 @Html.DisplayFor(modelItem => item.Preco_Produto)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit Quantity", "Edit", new {  id=item.OrderID, idp = item.ProductID  }) |
+                @Html.ActionLink("Remove from Cart", "Delete", new { id = item.OrderID, idp = item.ProductID })
             </td>
         </tr>
     }

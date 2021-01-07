@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using eShopping.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace eShopping.Controllers
 {
@@ -18,6 +19,7 @@ namespace eShopping.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -144,6 +146,32 @@ namespace eShopping.Controllers
             }
         }
 
+        public ActionResult AtribuirNomeEmpresa(int? id)
+        {
+            Company comp = db.Empresas.Find(id);
+            return View(comp);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AtribuirNomeEmpresa([Bind(Include = "Nome,Email,CompanyId,EstaEliminado")] Company empresa)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(empresa).State = EntityState.Modified;
+                var user = User.Identity.GetUserId();
+                foreach (var i in db.Users){
+                    if(i.Id == user)
+                    {
+                        i.Company = empresa;
+                    }
+                }
+                db.SaveChanges();
+                return RedirectToAction("Index", "Manage");
+            }
+
+            return RedirectToAction("Index", "LandingPage");
+        }
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -168,6 +196,11 @@ namespace eShopping.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                ///var useridAtual = User.Identity.GetUserId();
+                ///var userAtual = db.Users.FirstOrDefault(u => u.Id == useridAtual);
+                ///user.CompanyId = userAtual.CompanyId;
+
                 if (result.Succeeded)
                 {
                     //temp code
@@ -185,9 +218,12 @@ namespace eShopping.Controllers
 
                     if(model.RoleName == RoleName.Company)
                     {
-                        Company company = new Company {userID = user.Id, Nome = model.Name, Email = model.Email, EstaEliminado = false };
+                        Company company = new Company { Nome = "NomeEmpresa", Email = model.Email, EstaEliminado = false };
                         db.Empresas.Add(company);
                         db.SaveChanges();
+                        return RedirectToAction("AtribuirNomeEmpresa", "Account", new { id = company.CompanyId });
+                        /// user.CompanyId = company.CompanyId;
+                        //create user
                     }
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -206,7 +242,6 @@ namespace eShopping.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

@@ -59,7 +59,7 @@ namespace eShopping.Controllers
         }
 
         // GET: Companies/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -78,7 +78,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userID,Email,Nome")] Company company)
+        public ActionResult Edit([Bind(Include = "CompanyId,Email,Nome")] Company company)
         {
             if (NameCompanyRepeted(company))
             {
@@ -87,13 +87,6 @@ namespace eShopping.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(company).State = EntityState.Modified;
-                foreach (var i in db.Users)
-                {
-                    if (i.Id == company.userID)
-                    {
-                        i.UserName = company.Nome;
-                    }
-                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -101,7 +94,7 @@ namespace eShopping.Controllers
         }
 
         // GET: Companies/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -118,21 +111,27 @@ namespace eShopping.Controllers
         // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Company company = db.Empresas.Include(p => p.Produtos).FirstOrDefault(e => e.userID == id);
             Company aux = null;
+            Company apaga = null;
+            var company = db.Empresas.Include(p => p.Produtos); 
+            foreach(var w in company)
+            {
+                if (w.CompanyId == id)
+                    aux = w;
+            }
             if (company == null)
                 return RedirectToAction("Index");
 
-            foreach (var i in company.Produtos)
+            foreach (var i in aux.Produtos)
             {
-                i.Empresa = aux;
+                i.Company = apaga;
                 i.EstaEliminado = true;
             }
 
-            if (company.EstaEliminado == false)
-                company.EstaEliminado = true;
+            if (aux.EstaEliminado == false)
+                aux.EstaEliminado = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

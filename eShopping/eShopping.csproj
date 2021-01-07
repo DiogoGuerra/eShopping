@@ -290,6 +290,10 @@
     <Compile Include="Migrations\202101041815378_AddBoolToCompanies.Designer.cs">
       <DependentUpon>202101041815378_AddBoolToCompanies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101071048467_ChangeCompanyModel.cs" />
+    <Compile Include="Migrations\202101071048467_ChangeCompanyModel.Designer.cs">
+      <DependentUpon>202101071048467_ChangeCompanyModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -2430,6 +2434,10 @@
     <Content Include="Views\Companies\listaclientes.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\EditaCliente.cshtml" />
+    <Content Include="Views\Account\RegisterCompany.cshtml" />
+    <Content Include="Views\Account\AtribuirNomeEmpresa.cshtml" />
+    <Content Include="Views\ProductsOrders\Edit.cshtml" />
+    <Content Include="Views\ProductsOrders\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2531,6 +2539,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101041815378_AddBoolToCompanies.resx">
       <DependentUpon>202101041815378_AddBoolToCompanies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101071048467_ChangeCompanyModel.resx">
+      <DependentUpon>202101071048467_ChangeCompanyModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

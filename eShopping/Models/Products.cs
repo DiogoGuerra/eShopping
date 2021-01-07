@@ -20,10 +20,11 @@ namespace eShopping.Models
         public int Stock { get; set; }
         [Display(Name = "Promotion")]
         public Promotion Promo { get; set; }
-        public Company Empresa { get; set; }
+        public Company Company { get; set; }
         [Required]
         [Display(Name = "Company ID")]
-        public string ID_Empresa { get; set; }
+        [ForeignKey("Company")]
+        public int CompanyId { get; set; }
         [Required]
         [Range(0, 100)]
         [Display(Name = "Price")]

@@ -80,20 +80,26 @@ namespace eShopping.Controllers
         }
 
         // GET: ProductsOrders/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? idp)
         {
-            if (id == null)
+            ProductsOrder aux = null;
+            if (id == null && idp == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductsOrder productsOrder = db.ProdutosPedidos.Find(id);
-            if (productsOrder == null)
+            //ProductsOrder productsOrder = db.ProdutosPedidos.Find(id,idp);
+            foreach (var i in db.ProdutosPedidos)
+            {
+                if (i.ProductID == idp && i.OrderID == id)
+                    aux = i;
+            }
+            if (aux == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.OrderID = new SelectList(db.Pedidos, "OrderID", "ID_Cliente", productsOrder.OrderID);
-            ViewBag.ProductID = new SelectList(db.Produtos, "ProductID", "Nome_Produto", productsOrder.ProductID);
-            return View(productsOrder);
+            ViewBag.OrderID = new SelectList(db.Pedidos, "OrderID", "ID_Cliente", aux.OrderID);
+            ViewBag.ProductID = new SelectList(db.Produtos, "ProductID", "Nome_Produto", aux.ProductID);
+            return View(aux);
         }
 
         // POST: ProductsOrders/Edit/5
@@ -103,11 +109,59 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductID,OrderID,Quantidade,Preco_Produto")] ProductsOrder productsOrder)
         {
+            int quantidade_anterior = 0;
+            foreach (var i in db.ProdutosPedidos)
+            {
+                if(i.ProductID == productsOrder.ProductID && i.OrderID == productsOrder.OrderID)
+                {
+                    quantidade_anterior = i.Quantidade;
+                }
+            }
+            foreach (var i in db.Produtos)
+            {
+                if (productsOrder.ProductID == i.ProductID)
+                {   
+                    if(productsOrder.Quantidade== 0)
+                    {
+                        ModelState.AddModelError("Quantidade", "Instead, please remove the product from the cart");
+                    }
+                    if(quantidade_anterior < productsOrder.Quantidade)
+                    {
+                        if(i.Stock < productsOrder.Quantidade)
+                        {
+                            ModelState.AddModelError("Quantidade", "Quantity invalid!");
+                        }
+                    }
+                    else
+                    {
+                        if (i.Stock + quantidade_anterior < productsOrder.Quantidade)
+                        {
+                            ModelState.AddModelError("Quantidade", "Quantity invalid!");
+                        }
+                    }
+                    
+                }
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(productsOrder).State = EntityState.Modified;
+                foreach (var i in db.Produtos)
+                {
+                    if (productsOrder.ProductID == i.ProductID)
+                    {
+                        i.Stock += quantidade_anterior;
+                        i.Stock -= productsOrder.Quantidade;
+                    }
+                }
+                foreach (var i in db.ProdutosPedidos)
+                {
+                    if (i.ProductID == productsOrder.ProductID && i.OrderID == productsOrder.OrderID)
+                    {
+                        i.Quantidade = productsOrder.Quantidade;
+                    }
+                }
+                //db.Entry(productsOrder).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Cart");
             }
             ViewBag.OrderID = new SelectList(db.Pedidos, "OrderID", "ID_Cliente", productsOrder.OrderID);
             ViewBag.ProductID = new SelectList(db.Produtos, "ProductID", "Nome_Produto", productsOrder.ProductID);
@@ -115,29 +169,49 @@ namespace eShopping.Controllers
         }
 
         // GET: ProductsOrders/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, int? idp)
         {
-            if (id == null)
+            ProductsOrder aux = null;
+            if (id == null && idp == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductsOrder productsOrder = db.ProdutosPedidos.Find(id);
-            if (productsOrder == null)
+            //ProductsOrder productsOrder = db.ProdutosPedidos.Find(id,idp);
+            foreach (var i in db.ProdutosPedidos)
+            {
+                if (i.ProductID == idp && i.OrderID == id)
+                    aux = i;
+            }
+            if (aux == null)
             {
                 return HttpNotFound();
             }
-            return View(productsOrder);
+            ViewBag.OrderID = new SelectList(db.Pedidos, "OrderID", "ID_Cliente", aux.OrderID);
+            ViewBag.ProductID = new SelectList(db.Produtos, "ProductID", "Nome_Produto", aux.ProductID);
+            return View(aux);
         }
 
         // POST: ProductsOrders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id,int? idp)
         {
-            ProductsOrder productsOrder = db.ProdutosPedidos.Find(id);
-            db.ProdutosPedidos.Remove(productsOrder);
+            ProductsOrder aux = null;
+            foreach (var i in db.ProdutosPedidos)
+            {
+                if (i.ProductID == idp && i.OrderID == id)
+                    aux = i;
+            }
+            foreach (var i in db.Produtos)
+            {
+                if(i.ProductID == aux.ProductID)
+                {
+                    i.Stock += aux.Quantidade;
+                }
+            }
+            db.ProdutosPedidos.Remove(aux);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Cart");
         }
 
         protected override void Dispose(bool disposing)

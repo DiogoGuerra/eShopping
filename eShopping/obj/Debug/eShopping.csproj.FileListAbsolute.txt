@@ -242,3 +242,4 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csprojAssemblyReference.cache
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddPrecoTotalToOrder.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddBoolToCompanies.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.ChangeCompanyModel.resources

@@ -24,17 +24,17 @@ namespace eShopping.Controllers
             if (User.IsInRole(RoleName.Company))
             {
                 var companyId = User.Identity.GetUserId();
-                var c = db.Produtos.Include(p => p.Categoria).Include(e => e.Empresa).Where(r =>r.Empresa.userID == companyId).Where(r => r.EstaEliminado == false);
+                var c = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false);
                 return View(c.ToList());
             }
 
-            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Empresa).Where(r => r.EstaEliminado == false);
+            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false);
             return View(produtos.ToList());
         }
 
         public ActionResult ListCostumerProducts(string categoria)
         {
-            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Empresa).Where(r => r.EstaEliminado == false);
+            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false).Where(s => s.Stock > 0);
 
             if (!string.IsNullOrEmpty(categoria))
                 produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria).Where(r => r.EstaEliminado == false);
@@ -43,7 +43,7 @@ namespace eShopping.Controllers
         [AllowAnonymous]
         public ActionResult ListAnonymous(string categoria)
         {
-            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Empresa).Where(r => r.EstaEliminado == false);
+            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false).Where(s => s.Stock > 0);
 
             if (!string.IsNullOrEmpty(categoria))
                 produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria).Where(r => r.EstaEliminado == false);
@@ -58,7 +58,7 @@ namespace eShopping.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Para aparecer a categoria nos detalhes temos de incluir
-            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ProductID == id).SingleOrDefault();
+            Products products = db.Produtos.Include(c => c.Company).Include(p => p.Categoria).Where(p => p.ProductID == id).SingleOrDefault();
             if (products == null)
             {
                 return HttpNotFound();
@@ -91,11 +91,15 @@ namespace eShopping.Controllers
             {
                 int flag = 0;
                 //ProdPedido.ProductID = produto.ProductID;
-                var pedi = db.Pedidos.Include(p => p.Empresa)/*.Where(p => p.PedidoEmAberto ==true)*/;
+                var pedi = db.Pedidos.Where(p => p.PedidoEmAberto == true)
+                                     .Include(p => p.Empresa)/*.Where(p => p.PedidoEmAberto ==true)*/;
+
+                var existePedidoParaEmpresa = pedi.Any(p => p.Empresa.CompanyId == produto.CompanyId);
+
                 foreach (var i in pedi)
                 {
                     // Se encontrar algum pedido da empresa
-                    if (i.Empresa.userID == produto.ID_Empresa)
+                    if (i.Empresa.CompanyId == produto.Company.CompanyId)
                     {
                         //Se o pedido tiver aberto, adicionamos
                         if (i.PedidoEmAberto == true)
@@ -128,7 +132,7 @@ namespace eShopping.Controllers
                 if (flag == 0)
                 {
                     Order novopedido = new Order();
-                    Company empresa = db.Empresas.Find(produto.ID_Empresa);
+                    Company empresa = db.Empresas.Find(produto.CompanyId);
                     novopedido.Empresa = empresa;
                     novopedido.ID_Cliente = User.Identity.GetUserId();
                     novopedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
@@ -185,7 +189,8 @@ namespace eShopping.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            setupCompanyIdViewBag();
+            //setupCompanyIdViewBag();
+            ViewBag.CompanyId = new SelectList(db.Empresas.Where(c => c.EstaEliminado == false), "CompanyId", "Nome");
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria");
             return View();
         }
@@ -195,15 +200,15 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,Nome_Produto,Stock,ID_Empresa,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
+        public ActionResult Create([Bind(Include = "ProductID,Nome_Produto,Stock,CompanyId,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
         {
             bool flag = false;
             foreach (var i in db.Produtos)
             {
-                if (i.Nome_Produto == products.Nome_Produto && i.ID_Empresa == products.ID_Empresa)
+                if (i.Nome_Produto == products.Nome_Produto && i.CompanyId == products.CompanyId)
                 {
                     flag = true;
-                    ModelState.AddModelError("ID_Empresa", "This company already have this product!");
+                    ModelState.AddModelError("CompanyId", "This company already have this product!");
                 }
             }
             //if (User.IsInRole(RoleName.Company))
@@ -213,8 +218,8 @@ namespace eShopping.Controllers
 
             //}
 
-            Company empresa = db.Empresas.Find(products.ID_Empresa);
-            products.Empresa = empresa;
+            Company empresa = db.Empresas.Find(products.CompanyId);
+            products.Company = empresa;
             //products.Empresa.Nome = empresa.Nome;
             if (ModelState.IsValid)
             {
@@ -225,7 +230,7 @@ namespace eShopping.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            setupCompanyIdViewBag();
+            ViewBag.CompanyId = new SelectList(db.Empresas.Where(c => c.EstaEliminado == false), "CompanyId", "Nome");
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
@@ -242,7 +247,8 @@ namespace eShopping.Controllers
             {
                 return HttpNotFound();
             }
-            setupCompanyIdViewBag();
+            ViewBag.CompanyId = new SelectList(db.Empresas.Where(c => c.EstaEliminado == false), "CompanyId", "Nome");
+            //setupCompanyIdViewBag();
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
@@ -252,7 +258,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,Nome_Produto,Stock,ID_Empresa,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
+        public ActionResult Edit([Bind(Include = "ProductID,Nome_Produto,Stock,CompanyId,Preco_Produto,EstaNoCatalogo,CategoriaID")] Products products)
         {
             if (ModelState.IsValid)
             {
@@ -260,11 +266,12 @@ namespace eShopping.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
             }
-        //else
-        //{
-        //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //}
-        setupCompanyIdViewBag();
+            //else
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //setupCompanyIdViewBag();
+            ViewBag.CompanyId = new SelectList(db.Empresas.Where(c => c.EstaEliminado == false), "CompanyId", "Nome");
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
         }
@@ -276,7 +283,7 @@ namespace eShopping.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Products products = db.Produtos.Include(p => p.Categoria).Where(p => p.ProductID == id).SingleOrDefault();
+            Products products = db.Produtos.Include(c=> c.Company).Include(p => p.Categoria).Where(p => p.ProductID == id).SingleOrDefault();
             if (products == null)
             {
                 return HttpNotFound();
