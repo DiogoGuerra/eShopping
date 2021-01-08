@@ -1,15 +1,17 @@
 ﻿@model IEnumerable<eShopping.Models.Products>
 
 @{
-    ViewBag.Title = "ListCostumerProducts";
+    ViewBag.Title = "Index";
 }
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
 <div class="content">
     <div class="container-fluid">
-        <table id="products1" class="table table-bordered table-striped dataTable">
+        <table id="products" class="table table-bordered table-striped dataTable">
             <thead>
                 <tr>
                     <th>
@@ -21,13 +23,14 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Stock)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Company.Nome)
-                    </th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.Preco_Produto)
                     </th>
-                    <th> </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EstaNoCatalogo)
+                    </th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -45,13 +48,15 @@
                             @Html.DisplayFor(modelItem => item.Stock)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Company.Nome)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Preco_Produto)
                         </td>
                         <td>
-                            @Html.ActionLink("Add to Cart", "ButtonAddCart",new { id = item.ProductID })
+                            @Html.DisplayFor(modelItem => item.EstaNoCatalogo)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID })
+                            @Html.ActionLink("Details", "Details", new { id = item.ProductID })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
                         </td>
                     </tr>
                 }
@@ -60,11 +65,10 @@
     </div>
 </div>
 
-@*@section Scripts {
+@section Scripts {
     <script>
         $(document).ready(function () {
-            $("#products1").DataTable();
+            $("#products").DataTable();
         });
     </script>
-}*@
-
+}

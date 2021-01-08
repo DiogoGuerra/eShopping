@@ -21,6 +21,7 @@ namespace eShopping.Models
         public Order Pedido { get; set; }
 
         [Required]
+        [Display(Name = "Quantity")]
         public int Quantidade { get; set; }
 
         public double Preco_Produto { get; set; } //Vamos guardar este preço para depois de haver promoções, mantermos o registo do preço certo

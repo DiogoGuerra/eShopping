@@ -2418,7 +2418,7 @@
     <Content Include="Views\Shared\Sidebars\_Company.cshtml" />
     <Content Include="Views\Shared\Sidebars\_Employee.cshtml" />
     <Content Include="Views\Products\ListAnonymous.cshtml" />
-    <Content Include="Views\Products\ButtonBuy.cshtml" />
+    <Content Include="Views\Products\ButtonAddCart.cshtml" />
     <Content Include="Views\Deliveries\Create.cshtml" />
     <Content Include="Views\Deliveries\Index.cshtml" />
     <Content Include="Views\Deliveries\Delete.cshtml" />
@@ -2438,6 +2438,9 @@
     <Content Include="Views\Account\AtribuirNomeEmpresa.cshtml" />
     <Content Include="Views\ProductsOrders\Edit.cshtml" />
     <Content Include="Views\ProductsOrders\Delete.cshtml" />
+    <Content Include="Views\ProductsOrders\ButtonAddCart1.cshtml" />
+    <Content Include="Views\Products\CompanyIndex.cshtml" />
+    <Content Include="Views\Products\CompanyCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

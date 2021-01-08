@@ -21,11 +21,21 @@ namespace eShopping.Controllers
         // GET: Products
         public ActionResult Index()
         {
+            int com = 0;
             if (User.IsInRole(RoleName.Company))
             {
-                var companyId = User.Identity.GetUserId();
-                var c = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false);
-                return View(c.ToList());
+                var userID = User.Identity.GetUserId();
+
+                foreach (var i in db.Users)
+                {
+                    if(i.Id == userID)
+                    {
+                        com = (int)i.CompanyId;
+                    }
+                }
+                
+                var c = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false).Where(p => p.Company.CompanyId == com);
+                return View("CompanyIndex",c.ToList());
             }
 
             var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false);
@@ -66,7 +76,7 @@ namespace eShopping.Controllers
             return View(products);
         }
 
-        public ActionResult ButtonBuy(int id)
+        public ActionResult ButtonAddCart(int id)
         {
             ProductsOrder produtoPedido = new ProductsOrder();
 
@@ -78,10 +88,11 @@ namespace eShopping.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ButtonBuy([Bind(Include = "ProductID,Quantidade")] ProductsOrder ProdPedido)
+        public ActionResult ButtonAddCart([Bind(Include = "ProductID,Quantidade")] ProductsOrder ProdPedido)
         {
-            //Products produto = new Products();
-            Products produto = db.Produtos.Find(ProdPedido.ProductID);
+            //Products produto = db.Produtos.Find(ProdPedido.ProductID);
+            var produto = db.Produtos.Include(p => p.Company).FirstOrDefault(x => x.ProductID == ProdPedido.ProductID);
+           
             Order aux = null;
             if (produto.Stock < ProdPedido.Quantidade)
             {
@@ -91,43 +102,26 @@ namespace eShopping.Controllers
             {
                 int flag = 0;
                 //ProdPedido.ProductID = produto.ProductID;
-                var pedi = db.Pedidos.Where(p => p.PedidoEmAberto == true)
-                                     .Include(p => p.Empresa)/*.Where(p => p.PedidoEmAberto ==true)*/;
+                var pedi = db.Pedidos.Where(p => p.PedidoEmAberto == true).Include(p => p.Empresa);
 
                 var existePedidoParaEmpresa = pedi.Any(p => p.Empresa.CompanyId == produto.CompanyId);
-
-                foreach (var i in pedi)
+                
+                if (pedi != null)
                 {
-                    // Se encontrar algum pedido da empresa
-                    if (i.Empresa.CompanyId == produto.Company.CompanyId)
+                    foreach (var i in pedi) // percorrer os pedidos em aberto
                     {
-                        //Se o pedido tiver aberto, adicionamos
-                        if (i.PedidoEmAberto == true)
+                        // Se encontrar algum pedido da empresa
+                        if (i.Empresa.CompanyId == produto.Company.CompanyId)
                         {
+                            //Se o pedido tiver aberto, adicionamos
                             aux = i;
                             Order ped = i;
                             ProdPedido.Pedido = ped;
                             flag = 2; //verificar se o produto ja existe nos pedidos em aberto
                         }
-                        //Caso contrario criamos um 
-                        else
-                        {
-                            //Order novopedido = new Order();
-                            //Company empresa = db.Empresas.Find(produto.ID_Empresa);
-                            //novopedido.Empresa = empresa;
-                            //novopedido.ID_Cliente = User.Identity.GetUserId();
-                            //novopedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
-                            //novopedido.PedidoEmAberto = true;
-                            //novopedido.Data_Venda = DateTime.Now;
-                            //novopedido.EntregaID = 2;
-                            //ProdPedido.OrderID = novopedido.OrderID;
-                            //ProdPedido.Preco_Produto = produto.Preco_Produto;
-                            //db.Pedidos.Add(novopedido);
-                            //db.ProdutosPedidos.Add(ProdPedido);
-                            flag = 0;
-                        }
                     }
                 }
+          
                 //Se nao houver nenhum pedido da empresa desejada
                 if (flag == 0)
                 {
@@ -147,14 +141,17 @@ namespace eShopping.Controllers
                 if (flag == 2)
                 {
                     int existe = 0;
-                    var prodped = db.ProdutosPedidos.Include(p => p.Produto);
+                    var prodped = db.ProdutosPedidos.Include(p => p.Produto).Include(p => p.Pedido);
                     foreach (var d in prodped)
                     {
                         if (d.Produto == produto)
                         {
                             existe = 1;
                             d.Quantidade += ProdPedido.Quantidade;
-                            d.Pedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                            Order p = d.Pedido;
+                            p.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                            d.Pedido = p;
+                            //d.Pedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
                             db.Entry(d).State = EntityState.Modified; 
                         }
                     }
@@ -165,7 +162,6 @@ namespace eShopping.Controllers
                         ProdPedido.Pedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
                         db.ProdutosPedidos.Add(ProdPedido);
                         //Temos de adicionar o produto se nao houver o que ele quer adicionar
-
                     }
                 }
 
@@ -189,6 +185,22 @@ namespace eShopping.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            int com = 0;
+            if (User.IsInRole(RoleName.Company))
+            {
+                var userID = User.Identity.GetUserId();
+
+                foreach (var i in db.Users)
+                {
+                    if (i.Id == userID)
+                    {
+                        com = (int)i.CompanyId;
+                    }
+                }
+                ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria");
+                Products novo = new Products { CompanyId = com, EstaEliminado = false};
+                return View("CompanyCreate", novo);
+            }
             //setupCompanyIdViewBag();
             ViewBag.CompanyId = new SelectList(db.Empresas.Where(c => c.EstaEliminado == false), "CompanyId", "Nome");
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria");
@@ -211,12 +223,6 @@ namespace eShopping.Controllers
                     ModelState.AddModelError("CompanyId", "This company already have this product!");
                 }
             }
-            //if (User.IsInRole(RoleName.Company))
-            //{
-            //    Company empresa = db.Empresas.Find(User.Identity.GetUserId());
-            //    products.Empresa = empresa;
-
-            //}
 
             Company empresa = db.Empresas.Find(products.CompanyId);
             products.Company = empresa;

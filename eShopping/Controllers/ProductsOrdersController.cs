@@ -222,5 +222,119 @@ namespace eShopping.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        //---------------------------------------------------------------------------
+        public ActionResult ButtonAddCart1(int id)
+        {
+            ProductsOrder produtoPedido = new ProductsOrder
+            {
+                ProductID = id
+            };
+
+            return View(produtoPedido);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ButtonAddCart1([Bind(Include = "ProductID,OrderID,Preco_Produto,Quantidade")] ProductsOrder ProdPedido)
+        {
+            //Products produto = new Products();
+            Products produto = db.Produtos.Find(ProdPedido.ProductID);
+            Order aux = null;
+            if (produto.Stock < ProdPedido.Quantidade)
+            {
+                ModelState.AddModelError("Quantidade", "This company already have this product!");
+            }
+            if (ModelState.IsValid)
+            {
+                int flag = 0;
+                //ProdPedido.ProductID = produto.ProductID;
+                var pedi = db.Pedidos.Where(p => p.PedidoEmAberto == true)
+                                     .Include(p => p.Empresa)/*.Where(p => p.PedidoEmAberto ==true)*/;
+
+                var existePedidoParaEmpresa = pedi.Any(p => p.Empresa.CompanyId == produto.CompanyId);
+
+                foreach (var i in pedi)
+                {
+                    // Se encontrar algum pedido da empresa
+                    if (i.Empresa.CompanyId == produto.Company.CompanyId)
+                    {
+                        //Se o pedido tiver aberto, adicionamos
+                        if (i.PedidoEmAberto == true)
+                        {
+                            aux = i;
+                            Order ped = i;
+                            ProdPedido.Pedido = ped;
+                            flag = 2; //verificar se o produto ja existe nos pedidos em aberto
+                        }
+                        //Caso contrario criamos um 
+                        else
+                        {
+                            //Order novopedido = new Order();
+                            //Company empresa = db.Empresas.Find(produto.ID_Empresa);
+                            //novopedido.Empresa = empresa;
+                            //novopedido.ID_Cliente = User.Identity.GetUserId();
+                            //novopedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                            //novopedido.PedidoEmAberto = true;
+                            //novopedido.Data_Venda = DateTime.Now;
+                            //novopedido.EntregaID = 2;
+                            //ProdPedido.OrderID = novopedido.OrderID;
+                            //ProdPedido.Preco_Produto = produto.Preco_Produto;
+                            //db.Pedidos.Add(novopedido);
+                            //db.ProdutosPedidos.Add(ProdPedido);
+                            flag = 0;
+                        }
+                    }
+                }
+                //Se nao houver nenhum pedido da empresa desejada
+                if (flag == 0)
+                {
+                    Order novopedido = new Order();
+                    Company empresa = db.Empresas.Find(produto.CompanyId);
+                    novopedido.Empresa = empresa;
+                    novopedido.ID_Cliente = User.Identity.GetUserId();
+                    novopedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                    novopedido.PedidoEmAberto = true;
+                    novopedido.Data_Venda = DateTime.Now;
+                    novopedido.EntregaID = 2;
+                    ProdPedido.OrderID = novopedido.OrderID;
+                    ProdPedido.Preco_Produto = produto.Preco_Produto;
+                    db.Pedidos.Add(novopedido);
+                    db.ProdutosPedidos.Add(ProdPedido);
+                }
+                if (flag == 2)
+                {
+                    int existe = 0;
+                    var prodped = db.ProdutosPedidos.Include(p => p.Produto);
+                    foreach (var d in prodped)
+                    {
+                        if (d.Produto == produto)
+                        {
+                            existe = 1;
+                            d.Quantidade += ProdPedido.Quantidade;
+                            d.Pedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                            db.Entry(d).State = EntityState.Modified;
+                        }
+                    }
+                    if (existe == 0)
+                    {
+                        ProdPedido.Produto = produto;
+                        ProdPedido.Preco_Produto = produto.Preco_Produto;
+                        ProdPedido.Pedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                        db.ProdutosPedidos.Add(ProdPedido);
+                        //Temos de adicionar o produto se nao houver o que ele quer adicionar
+
+                    }
+                }
+
+                produto.Stock -= ProdPedido.Quantidade;
+                db.Entry(produto).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("ListCostumerProducts", "Products");
+        }
     }
 }
