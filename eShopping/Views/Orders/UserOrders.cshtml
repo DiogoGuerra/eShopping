@@ -1,63 +1,45 @@
 ﻿@model IEnumerable<eShopping.Models.Order>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UserOrders</title>
-</head>
-<body>
 
-    <table class="table">
+<meta name="viewport" content="width=device-width" />
+<title>UserOrders</title>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entrega.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco_Total)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OrderID)
+                @Html.DisplayFor(modelItem => item.OrderID)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entrega.Tipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Preco_Total)
-            </th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Entrega.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco_Total)
+            </td>
+            <td>
+                | @Html.ActionLink("Change the Delivery Method", "Edit", new { id = item.OrderID }) |
+            </td>
         </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Checkout", "FUserOrders") | @Html.ActionLink("Back To Cart", "Cart","ProductsOrders")
+</p> 
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <th>
-                    @Html.DisplayFor(modelItem => item.OrderID)
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Entrega.Tipo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Preco_Total)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
-                </td>
-            </tr>
-        }
-    </table>
-    <p>
-        @Html.ActionLink("Checkout", "FUserOrders")
-    </p>
-    @*<div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button onclick='@Html.ActionLink("Checkout", "FUserOrders")'>Checkout</button>
-        </div>
-    </div>*@
-
-    @*<div>
-        <div class="col-md-offset-2 col-md-10">
-            <asp:Button ID="Button1" runat="server" onclick="FUserOrders" Text="Button" />
-        </div>
-    </div>
-</body>*@
-
-
-</html>
 
 
 

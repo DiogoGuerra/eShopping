@@ -144,13 +144,22 @@ namespace eShopping.Controllers
             }
             if (ModelState.IsValid)
             {
+                double aux = 0;
                 foreach (var i in db.Produtos)
                 {
                     if (productsOrder.ProductID == i.ProductID)
                     {
                         i.Stock += quantidade_anterior;
                         i.Stock -= productsOrder.Quantidade;
+                        aux = i.Preco_Produto * productsOrder.Quantidade;
                     }
+                }
+                foreach(var i in db.Pedidos)
+                {
+                    if(i.OrderID == productsOrder.OrderID)
+                    {
+                        i.Preco_Total = aux;
+                    } 
                 }
                 foreach (var i in db.ProdutosPedidos)
                 {
@@ -210,6 +219,27 @@ namespace eShopping.Controllers
                 }
             }
             db.ProdutosPedidos.Remove(aux);
+            db.SaveChanges();
+            int cont = 0;
+            var pedi = db.ProdutosPedidos.Include(c => c.Pedido).Where(model => model.Pedido.PedidoEmAberto == true);
+            foreach(var i in pedi)
+            {
+                if(i.Pedido == aux.Pedido)
+                {
+                    cont++;
+                }
+            }
+            if(cont == 0)
+            {
+                foreach (var i in db.Pedidos)
+                {
+                    if (i.OrderID == aux.OrderID)
+                    {
+                        i.PedidoEmAberto = false;
+                        db.Pedidos.Remove(i);
+                    }
+                }
+            }
             db.SaveChanges();
             return RedirectToAction("Cart");
         }

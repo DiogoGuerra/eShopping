@@ -1,0 +1,121 @@
+﻿@model eShopping.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register the Employee";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>eShopping | Register</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="@Url.Action("Index", "LandingPage")"><b>eShopping</b>PWEB</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Register a new membership</p>
+
+                @using (Html.BeginForm("RegisterEmployee", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-control" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-control" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-control" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype Password", @class = "form-control" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.LabelFor(m => m.RoleName, new { @class = "form-control col-md-3" })
+                        @Html.DropDownList("RoleName", null, new { placeholder = "Select Register Role", @class = "form-control" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user-tag"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                @*@Html.CheckBoxFor(m => m.RememberMe)*@
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <input type="submit" value="Register" class="btn btn-primary btn-block" />
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    @*<p class="mb-0">
+                        @Html.ActionLink("I already have a membership", "Login", new { @class = "text-center" })
+                    </p>*@
+
+                }
+
+            </div>
+            <!-- /.register-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+    <!-- REQUIRED SCRIPTS -->
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <!-- jQuery -->
+        @Scripts.Render("~/bundles/jquery")
+        <!-- Bootstrap 4 -->
+        @Scripts.Render("~/bundles/bootstrap")
+        <!-- AdminLTE App -->
+        @Scripts.Render("~/admin-lte/js")
+        @RenderSection("scripts", required: false)
+    }
+
+</body>
+</html>

@@ -549,6 +549,76 @@ namespace eShopping.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+
+
+        }
+        public ActionResult RegisterEmployee()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var roles = db.Roles.Where(m => m.Name == RoleName.Employee);
+            ViewBag.RoleName = new SelectList(roles, "Name", "Name");
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+               
+
+                if (result.Succeeded)
+                {
+                    //temp code
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("user"));
+                    //await UserManager.AddToRoleAsync(user.Id, "user");
+
+                    var useridAtual = User.Identity.GetUserId();
+                    var userAtual = db.Users.FirstOrDefault(u => u.Id == useridAtual);
+                    user.CompanyId = userAtual.CompanyId;
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    if (model.RoleName != RoleName.Admin)
+                    {
+                        UserManager.AddToRole(user.Id, model.RoleName);
+                    }
+                  //  await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    //if (model.RoleName == RoleName.Company)
+                    //{
+                    //    Company company = new Company { Nome = "NomeEmpresa", Email = model.Email, EstaEliminado = false };
+                    //    db.Empresas.Add(company);
+                    //    db.SaveChanges();
+                    //    return RedirectToAction("AtribuirNomeEmpresa", "Account", new { id = company.CompanyId });
+                    //    /// user.CompanyId = company.CompanyId;
+                    //    //create user
+                    //}
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Manage");
+                }
+                AddErrors(result);
+            }
+
+            var roles = db.Roles.Where(m => m.Name == RoleName.Employee);
+            ViewBag.RoleName = new SelectList(roles, "Name", "Name");
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
         #endregion
     }

@@ -2426,7 +2426,6 @@
     <Content Include="Views\ProductsOrders\Cart.cshtml" />
     <Content Include="Views\Shared\Sidebars\_Anon.cshtml" />
     <Content Include="Views\Orders\UserOrders.cshtml" />
-    <Content Include="Views\Orders\asdfsd.cshtml" />
     <Content Include="Views\Orders\OrdersHistory.cshtml" />
     <Content Include="Views\ProductsOrders\OrderDetails.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
@@ -2441,6 +2440,7 @@
     <Content Include="Views\ProductsOrders\ButtonAddCart1.cshtml" />
     <Content Include="Views\Products\CompanyIndex.cshtml" />
     <Content Include="Views\Products\CompanyCreate.cshtml" />
+    <Content Include="Views\Account\RegisterEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

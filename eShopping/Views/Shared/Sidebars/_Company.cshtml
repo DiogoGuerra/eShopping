@@ -1,7 +1,7 @@
 ﻿<nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-        <li class="nav-header">CATALOG</li>
+        <li class="nav-header">Catalog</li>
         <li class="nav-item">
             <a class="nav-link" href="@Url.Action("Index", "Products")">
                 <i class="nav-icon fas fa-list-ul"></i>
@@ -12,7 +12,7 @@
         </li>
 
 
-        <li class="nav-header">MANAGEMENT</li>
+        <li class="nav-header">Employees Zone</li>
         <li class="nav-item">
             <a class="nav-link" href="@Url.Action("Index", "Products")">
                 <i class="nav-icon fas fa-store"></i>
@@ -21,7 +21,15 @@
                 </p>
             </a>
         </li>
-
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("RegisterEmployee", "Account")">
+                <i class="nav-icon fas fa-plus"></i>
+                <p>
+                    Add an Employyee
+                </p>
+            </a>
+        </li>
+        <li class="nav-header">Stats</li>
         <li class="nav-item">
             <a class="nav-link" href="@Url.Action("Index", "Products")">
                 <i class="nav-icon fas fa-store"></i>

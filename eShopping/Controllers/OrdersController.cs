@@ -112,13 +112,14 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderID,ID_Cliente,Data_Venda,EntregaID")] Order order)
+        public ActionResult Edit([Bind(Include = "OrderID,ID_Cliente,Data_Venda,EntregaID,Preco_Total")] Order order)
         {
             if (ModelState.IsValid)
             {
+                order.PedidoEmAberto = true;
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("UserOrders");
             }
             ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
             return View(order);

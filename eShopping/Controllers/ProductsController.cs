@@ -141,7 +141,7 @@ namespace eShopping.Controllers
                 if (flag == 2)
                 {
                     int existe = 0;
-                    var prodped = db.ProdutosPedidos.Include(p => p.Produto).Include(p => p.Pedido);
+                    var prodped = db.ProdutosPedidos.Include(p => p.Produto).Include(p => p.Pedido).Where(p => p.Pedido.PedidoEmAberto == true);
                     foreach (var d in prodped)
                     {
                         if (d.Produto == produto)
