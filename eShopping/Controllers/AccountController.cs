@@ -160,8 +160,9 @@ namespace eShopping.Controllers
             {
                 db.Entry(empresa).State = EntityState.Modified;
                 var user = User.Identity.GetUserId();
-                foreach (var i in db.Users){
-                    if(i.Id == user)
+                foreach (var i in db.Users)
+                {
+                    if (i.Id == user)
                     {
                         i.Company = empresa;
                     }
@@ -586,6 +587,7 @@ namespace eShopping.Controllers
 
                     var useridAtual = User.Identity.GetUserId();
                     var userAtual = db.Users.FirstOrDefault(u => u.Id == useridAtual);
+                    user.Company = userAtual.Company;
                     user.CompanyId = userAtual.CompanyId;
                     // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     if (model.RoleName != RoleName.Admin)

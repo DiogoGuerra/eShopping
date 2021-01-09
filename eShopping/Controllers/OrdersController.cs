@@ -28,6 +28,26 @@ namespace eShopping.Controllers
             var pedidos = db.Pedidos.Include(o => o.Entrega).Where(p => p.ID_Cliente  == userid).Where(p => p.PedidoEmAberto == true);
             return View(pedidos.ToList());
         }
+
+        public ActionResult ListOrdersEmployee()
+        {
+            string employeeid = User.Identity.GetUserId();
+            var employee = db.Users.FirstOrDefault(u => u.Id == employeeid);
+            var emp = employee.CompanyId;
+            Company aux = null;
+            int idc = 0;
+            foreach(var i in db.Empresas)
+            {
+                if(i.CompanyId == emp)
+                {
+                    aux = i;
+                    idc = i.CompanyId;
+                }
+            }
+            var pedidos = db.Pedidos.Include(o => o.Entrega).Include(e => e.Empresa).Include(c => c.Estado).Where(p => p.PedidoEmAberto == false).Where(c => c.Empresa.CompanyId == idc);
+            
+            return View(pedidos.ToList());
+        }
         //[ValidateAntiForgeryToken]
         public ActionResult FUserOrders()
         {
