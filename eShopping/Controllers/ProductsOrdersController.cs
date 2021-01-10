@@ -208,9 +208,14 @@ namespace eShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id,int? idp)
         {
+            int np = 0;
             ProductsOrder aux = null;
             foreach (var i in db.ProdutosPedidos)
             {
+                if(i.OrderID == id)
+                {
+                    np++;
+                }
                 if (i.ProductID == idp && i.OrderID == id)
                     aux = i;
             }
@@ -236,7 +241,7 @@ namespace eShopping.Controllers
             {
                 foreach (var i in db.Pedidos)
                 {
-                    if (i.OrderID == aux.OrderID)
+                    if (i.OrderID == aux.OrderID && np < 2)
                     {
                         i.PedidoEmAberto = false;
                         db.Pedidos.Remove(i);
