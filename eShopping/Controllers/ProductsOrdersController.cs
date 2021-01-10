@@ -145,12 +145,14 @@ namespace eShopping.Controllers
             if (ModelState.IsValid)
             {
                 double aux = 0;
+                double aux_tot = 0;
                 foreach (var i in db.Produtos)
                 {
                     if (productsOrder.ProductID == i.ProductID)
                     {
                         i.Stock += quantidade_anterior;
                         i.Stock -= productsOrder.Quantidade;
+                        aux_tot = quantidade_anterior * i.Preco_Produto;
                         aux = i.Preco_Produto * productsOrder.Quantidade;
                     }
                 }
@@ -158,7 +160,8 @@ namespace eShopping.Controllers
                 {
                     if(i.OrderID == productsOrder.OrderID)
                     {
-                        i.Preco_Total = aux;
+                        i.Preco_Total -= aux_tot;
+                        i.Preco_Total += aux;
                     } 
                 }
                 foreach (var i in db.ProdutosPedidos)
@@ -229,7 +232,7 @@ namespace eShopping.Controllers
                     cont++;
                 }
             }
-            if(cont == 0)
+            if (cont == 0)
             {
                 foreach (var i in db.Pedidos)
                 {
