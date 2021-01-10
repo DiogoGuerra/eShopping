@@ -20,6 +20,8 @@ namespace eShopping.Models
       
         public Status Estado { get; set; }
 
+        public int EstadoID { get; set; }
+
         public Delivery Entrega { get; set; } 
         [Required]
         public int EntregaID { get; set; }

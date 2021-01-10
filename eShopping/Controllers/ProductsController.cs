@@ -116,7 +116,9 @@ namespace eShopping.Controllers
                             //Se o pedido tiver aberto, adicionamos
                             aux = i;
                             Order ped = i;
+                            ped.EstadoID = 1;
                             ProdPedido.Pedido = ped;
+                   
                             flag = 2; //verificar se o produto ja existe nos pedidos em aberto
                         }
                     }
@@ -133,6 +135,7 @@ namespace eShopping.Controllers
                     novopedido.PedidoEmAberto = true;
                     novopedido.Data_Venda = DateTime.Now;
                     novopedido.EntregaID = 2;
+                    novopedido.EstadoID = 1;
                     ProdPedido.OrderID = novopedido.OrderID;
                     ProdPedido.Preco_Produto = produto.Preco_Produto;
                     db.Pedidos.Add(novopedido);

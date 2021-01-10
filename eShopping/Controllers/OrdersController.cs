@@ -48,14 +48,43 @@ namespace eShopping.Controllers
             
             return View(pedidos.ToList());
         }
+
+        public ActionResult ListOrdersPending()
+        {
+            string employeeid = User.Identity.GetUserId();
+            var employee = db.Users.FirstOrDefault(u => u.Id == employeeid);
+            var emp = employee.CompanyId;
+            Company aux = null;
+            int idc = 0;
+            foreach (var i in db.Empresas)
+            {
+                if (i.CompanyId == emp)
+                {
+                    aux = i;
+                    idc = i.CompanyId;
+                }
+            }
+            var pedidos = db.Pedidos.Include(o => o.Entrega).Include(e => e.Empresa).Include(c => c.Estado).Where(p => p.PedidoEmAberto == false).Where(c => c.Empresa.CompanyId == idc).Where(c => c.Estado.ID != 3);
+
+            return View(pedidos.ToList());
+        }
+
         //[ValidateAntiForgeryToken]
         public ActionResult FUserOrders()
         {
-
-            foreach( var i in db.Pedidos) {
+            Status est = null;
+           foreach(var i in db.Estados) {
+                if (i.Descricao == "Pending")
+                {
+                    est = i;
+                }
+            }
+            foreach ( var i in db.Pedidos) {
                 if(i.PedidoEmAberto == true && i.ID_Cliente == User.Identity.GetUserId())
                 {
+                    i.Estado = est;
                     i.PedidoEmAberto = false;
+                   
                 }
             }
 
@@ -142,6 +171,39 @@ namespace eShopping.Controllers
                 return RedirectToAction("UserOrders");
             }
             ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
+            return View(order);
+        }
+
+        public ActionResult EditStatus(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Pedidos.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            
+            ViewBag.EstadoID = new SelectList(db.Estados, "ID", "Descricao", order.EstadoID);
+            return View(order);
+        }
+
+        // POST: Orders/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditStatus([Bind(Include = "OrderID,ID_Cliente,Data_Venda,EntregaID,Preco_Total,EstadoID")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ListOrdersPending");
+            }
+            ViewBag.Estado = new SelectList(db.Estados, "ID", "Descricao", order.Estado);
             return View(order);
         }
 

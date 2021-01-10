@@ -295,6 +295,10 @@
     <Compile Include="Migrations\202101071048467_ChangeCompanyModel.Designer.cs">
       <DependentUpon>202101071048467_ChangeCompanyModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101092338009_EstadoID.cs" />
+    <Compile Include="Migrations\202101092338009_EstadoID.Designer.cs">
+      <DependentUpon>202101092338009_EstadoID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -2445,6 +2449,8 @@
     <Content Include="Views\Status\Create.cshtml" />
     <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Views\Orders\ListOrdersEmployee.cshtml" />
+    <Content Include="Views\Orders\ListOrdersPending.cshtml" />
+    <Content Include="Views\Orders\EditStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2549,6 +2555,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101071048467_ChangeCompanyModel.resx">
       <DependentUpon>202101071048467_ChangeCompanyModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101092338009_EstadoID.resx">
+      <DependentUpon>202101092338009_EstadoID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

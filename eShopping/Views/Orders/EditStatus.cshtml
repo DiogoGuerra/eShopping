@@ -1,0 +1,41 @@
+﻿@model eShopping.Models.Order
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Order</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.OrderID)
+    @Html.HiddenFor(model => model.ID_Cliente)
+    @Html.HiddenFor(model => model.Data_Venda)
+    @Html.HiddenFor(model => model.PedidoEmAberto)
+    @Html.HiddenFor(model => model.Preco_Total)
+    @Html.HiddenFor(model => model.EntregaID)
+    @Html.HiddenFor(model => model.Empresa)
+    @Html.HiddenFor(model => model.Entrega)
+    @*@Html.HiddenFor(model => model.Estado.ID)
+    @Html.HiddenFor(model => model.Estado.Descricao)*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EstadoID, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("EstadoID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EstadoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ListOrdersPending")
+</div>

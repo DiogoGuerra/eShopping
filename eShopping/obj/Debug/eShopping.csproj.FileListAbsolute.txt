@@ -243,3 +243,4 @@ C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.csprojAssem
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddPrecoTotalToOrder.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.AddBoolToCompanies.resources
 C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.ChangeCompanyModel.resources
+C:\Users\HP\Documents\GitHub\eShopping\eShopping\obj\Debug\eShopping.Migrations.EstadoID.resources
