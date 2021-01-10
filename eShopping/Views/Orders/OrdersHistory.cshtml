@@ -14,27 +14,33 @@
         <th>
             @Html.DisplayNameFor(model => model.Preco_Total)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Entrega.Tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID_Cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Data_Venda)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preco_Total)
-        </td>
-        <td>
-            @Html.ActionLink("Products", "OrderDetails", "ProductsOrders", new { id = item.OrderID }, null)
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Entrega.Tipo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ID_Cliente)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Data_Venda)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Preco_Total)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Estado.Descricao)
+    </td>
+    <td>
+        @Html.ActionLink("Products", "OrderDetails", "ProductsOrders", new { id = item.OrderID }, null)
+    </td>
+</tr>
 }
 
 </table>

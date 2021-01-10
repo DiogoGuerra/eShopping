@@ -299,6 +299,18 @@
     <Compile Include="Migrations\202101092338009_EstadoID.Designer.cs">
       <DependentUpon>202101092338009_EstadoID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101102003197_prodidin.cs" />
+    <Compile Include="Migrations\202101102003197_prodidin.Designer.cs">
+      <DependentUpon>202101102003197_prodidin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101102332029_RemovePROMOtable.cs" />
+    <Compile Include="Migrations\202101102332029_RemovePROMOtable.Designer.cs">
+      <DependentUpon>202101102332029_RemovePROMOtable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101102341475_AddTaxaPromocaoToProducts.cs" />
+    <Compile Include="Migrations\202101102341475_AddTaxaPromocaoToProducts.Designer.cs">
+      <DependentUpon>202101102341475_AddTaxaPromocaoToProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -308,7 +320,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\ProductsOrder.cs" />
-    <Compile Include="Models\Promotion.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\Status.cs" />
@@ -2558,6 +2569,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101092338009_EstadoID.resx">
       <DependentUpon>202101092338009_EstadoID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101102003197_prodidin.resx">
+      <DependentUpon>202101102003197_prodidin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101102332029_RemovePROMOtable.resx">
+      <DependentUpon>202101102332029_RemovePROMOtable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101102341475_AddTaxaPromocaoToProducts.resx">
+      <DependentUpon>202101102341475_AddTaxaPromocaoToProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

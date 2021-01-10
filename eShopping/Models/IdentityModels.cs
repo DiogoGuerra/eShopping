@@ -38,7 +38,6 @@ namespace eShopping.Models
         public DbSet<Products> Produtos { get; set; }
         public DbSet<Delivery> Entregas { get; set; }
         public DbSet<Order> Pedidos { get; set; }
-        public DbSet<Promotion> Promocoes { get; set; }
 
         public DbSet<Status> Estados { get; set; }
         public DbSet<ProductsOrder> ProdutosPedidos { get; set; }

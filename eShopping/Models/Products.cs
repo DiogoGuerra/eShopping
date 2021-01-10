@@ -18,8 +18,6 @@ namespace eShopping.Models
         [Range(0, 100)]
         [Required]
         public int Stock { get; set; }
-        [Display(Name = "Promotion")]
-        public Promotion Promo { get; set; }
         public Company Company { get; set; }
         [Required]
         [Display(Name = "Company ID")]
@@ -36,6 +34,8 @@ namespace eShopping.Models
 
         [Required]
         public bool EstaEliminado {get;set ;}
+
+        public double Taxa_Promocao { get; set; }
     }
 
 }

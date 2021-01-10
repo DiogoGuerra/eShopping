@@ -96,7 +96,7 @@ namespace eShopping.Controllers
         {
             //fALTA LISTAR OS PRODUTOS
             string userid = User.Identity.GetUserId();
-            var pedidos = db.Pedidos.Include(o => o.Entrega).Where(p => p.ID_Cliente == userid).Where(c => c.PedidoEmAberto == false);
+            var pedidos = db.Pedidos.Include(e => e.Estado).Include(o => o.Entrega).Where(p => p.ID_Cliente == userid).Where(c => c.PedidoEmAberto == false);
             return View(pedidos.ToList());
         }
 
@@ -199,6 +199,14 @@ namespace eShopping.Controllers
         {
             if (ModelState.IsValid)
             {
+                int est = order.EstadoID;
+                foreach(var i in db.Estados)
+                {
+                    if(i.ID == est)
+                    {
+                        order.Estado = i;
+                    }
+                }
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ListOrdersPending");
