@@ -60,6 +60,63 @@ namespace eShopping.Controllers
             return View(produtos.ToList());
         }
 
+        public ActionResult ListProdPromotions()
+        {
+            string employeeid = User.Identity.GetUserId();
+            var employee = db.Users.FirstOrDefault(u => u.Id == employeeid);
+            var emp = employee.CompanyId;
+            Company aux = null;
+            int idc = 0;
+            foreach (var i in db.Empresas)
+            {
+                if (i.CompanyId == emp)
+                {
+                    aux = i;
+                    idc = i.CompanyId;
+                }
+            }
+            var produtos = db.Produtos.Include(c => c.Company).Where(c => c.EstaEliminado == false).Where(c => c.CompanyId == idc);
+            return View(produtos.ToList());
+        }
+
+        public ActionResult EditPromo(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Products products = db.Produtos.Find(id);
+            if (products == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(products);
+        }
+
+        // POST: Products/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPromo([Bind(Include = "ProductID,Nome_Produto,Stock,CompanyId,Preco_Produto,EstaNoCatalogo,CategoriaID,Taxa_Promocao")] Products products)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                db.Entry(products).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ListProdPromotions");
+            }
+            //else
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //setupCompanyIdViewBag();
+            
+            return View(products);
+        }
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -123,7 +180,7 @@ namespace eShopping.Controllers
                         }
                     }
                 }
-          
+                double pr = 0;
                 //Se nao houver nenhum pedido da empresa desejada
                 if (flag == 0)
                 {
@@ -131,13 +188,14 @@ namespace eShopping.Controllers
                     Company empresa = db.Empresas.Find(produto.CompanyId);
                     novopedido.Empresa = empresa;
                     novopedido.ID_Cliente = User.Identity.GetUserId();
-                    novopedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                    pr = produto.Preco_Produto * (1 - produto.Taxa_Promocao);
+                    novopedido.Preco_Total += pr * ProdPedido.Quantidade;
                     novopedido.PedidoEmAberto = true;
                     novopedido.Data_Venda = DateTime.Now;
                     novopedido.EntregaID = 2;
                     novopedido.EstadoID = 1;
                     ProdPedido.OrderID = novopedido.OrderID;
-                    ProdPedido.Preco_Produto = produto.Preco_Produto;
+                    ProdPedido.Preco_Produto = pr; //Guardar o preço c/ promoção
                     db.Pedidos.Add(novopedido);
                     db.ProdutosPedidos.Add(ProdPedido);
                 }
@@ -152,7 +210,9 @@ namespace eShopping.Controllers
                             existe = 1;
                             d.Quantidade += ProdPedido.Quantidade;
                             Order p = d.Pedido;
-                            p.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
+                            pr = produto.Preco_Produto * (1 - produto.Taxa_Promocao);
+                            p.Preco_Total += pr * ProdPedido.Quantidade;
+                           // p.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
                             d.Pedido = p;
                             //d.Pedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
                             db.Entry(d).State = EntityState.Modified; 
@@ -161,7 +221,7 @@ namespace eShopping.Controllers
                     if (existe == 0)
                     {
                         ProdPedido.Produto = produto;
-                        ProdPedido.Preco_Produto = produto.Preco_Produto;
+                        ProdPedido.Preco_Produto = produto.Preco_Produto * (1 - produto.Taxa_Promocao); 
                         ProdPedido.Pedido.Preco_Total += produto.Preco_Produto * ProdPedido.Quantidade;
                         db.ProdutosPedidos.Add(ProdPedido);
                         //Temos de adicionar o produto se nao houver o que ele quer adicionar

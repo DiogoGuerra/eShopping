@@ -1,0 +1,34 @@
+﻿@model IEnumerable<eShopping.Models.Products>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome_Produto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco_Produto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Taxa_Promocao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome_Produto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco_Produto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Taxa_Promocao)
+        </td>
+        <td>
+           | @Html.ActionLink("Add or Change Promotion", "EditPromo", new { id=item.ProductID }) |
+        </td>
+    </tr>
+}
+
+</table>

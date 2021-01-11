@@ -2462,6 +2462,8 @@
     <Content Include="Views\Orders\ListOrdersEmployee.cshtml" />
     <Content Include="Views\Orders\ListOrdersPending.cshtml" />
     <Content Include="Views\Orders\EditStatus.cshtml" />
+    <Content Include="Views\Products\ListProdPromotions.cshtml" />
+    <Content Include="Views\Products\EditPromo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

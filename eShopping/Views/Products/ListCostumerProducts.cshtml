@@ -27,7 +27,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Preco_Produto)
                     </th>
-                    <th> </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Taxa_Promocao)
+                    </th>
                 </tr>
             </thead>
 
@@ -49,6 +51,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Preco_Produto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Taxa_Promocao)
                         </td>
                         <td>
                             @Html.ActionLink("Add to Cart", "ButtonAddCart",new { id = item.ProductID })

@@ -161,7 +161,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderID,ID_Cliente,Data_Venda,EntregaID,Preco_Total")] Order order)
+        public ActionResult Edit([Bind(Include = "OrderID,ID_Cliente,Data_Venda,EntregaID,Preco_Total,EstadoID,Estado")] Order order)
         {
             if (ModelState.IsValid)
             {

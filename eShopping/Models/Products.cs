@@ -34,7 +34,7 @@ namespace eShopping.Models
 
         [Required]
         public bool EstaEliminado {get;set ;}
-
+        [Display(Name = "Promotion")]
         public double Taxa_Promocao { get; set; }
     }
 

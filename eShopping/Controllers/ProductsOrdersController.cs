@@ -152,8 +152,8 @@ namespace eShopping.Controllers
                     {
                         i.Stock += quantidade_anterior;
                         i.Stock -= productsOrder.Quantidade;
-                        aux_tot = quantidade_anterior * i.Preco_Produto;
-                        aux = i.Preco_Produto * productsOrder.Quantidade;
+                        aux_tot = quantidade_anterior * (i.Preco_Produto *(1-i.Taxa_Promocao));
+                        aux = (i.Preco_Produto * (1 - i.Taxa_Promocao)) * productsOrder.Quantidade;
                     }
                 }
                 foreach(var i in db.Pedidos)

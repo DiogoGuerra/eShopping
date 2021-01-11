@@ -24,6 +24,7 @@ namespace eShopping.Models
         [Display(Name = "Quantity")]
         public int Quantidade { get; set; }
 
+        [Display(Name = "Price (with Promotion associated)")]
         public double Preco_Produto { get; set; } //Vamos guardar este preço para depois de haver promoções, mantermos o registo do preço certo
     
     }
