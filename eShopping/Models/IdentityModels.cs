@@ -21,6 +21,7 @@ namespace eShopping.Models
         [ForeignKey("Company")]
         public int? CompanyId { get; set; }
         public Company Company { get; set; }
+        public string Adress { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

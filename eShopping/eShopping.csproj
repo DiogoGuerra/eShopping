@@ -311,6 +311,10 @@
     <Compile Include="Migrations\202101102341475_AddTaxaPromocaoToProducts.Designer.cs">
       <DependentUpon>202101102341475_AddTaxaPromocaoToProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101112023194_AddAdress.cs" />
+    <Compile Include="Migrations\202101112023194_AddAdress.Designer.cs">
+      <DependentUpon>202101112023194_AddAdress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -2581,6 +2585,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101102341475_AddTaxaPromocaoToProducts.resx">
       <DependentUpon>202101102341475_AddTaxaPromocaoToProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101112023194_AddAdress.resx">
+      <DependentUpon>202101112023194_AddAdress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -195,7 +195,7 @@ namespace eShopping.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Name, Email = model.Email, Adress = model.Adress };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 ///var useridAtual = User.Identity.GetUserId();
