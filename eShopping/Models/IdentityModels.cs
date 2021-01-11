@@ -44,8 +44,6 @@ namespace eShopping.Models
 
         public DbSet<Company> Empresas { get; set; }
 
-        //public System.Data.Entity.DbSet<eShopping.Models.ApplicationUser> ApplicationUsers { get; set; }
-
-        //public System.Data.Entity.DbSet<eShopping.Models.ApplicationUser> ApplicationUsers { get; set; }
+       
     }
 }

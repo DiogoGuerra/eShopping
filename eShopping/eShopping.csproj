@@ -2464,6 +2464,7 @@
     <Content Include="Views\Orders\EditStatus.cshtml" />
     <Content Include="Views\Products\ListProdPromotions.cshtml" />
     <Content Include="Views\Products\EditPromo.cshtml" />
+    <Content Include="Views\Companies\Listafuncionarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

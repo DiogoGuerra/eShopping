@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eShopping.Models;
+using Microsoft.AspNet.Identity;
 
 namespace eShopping.Controllers
 {
@@ -169,6 +170,25 @@ namespace eShopping.Controllers
             var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(usr_role)).ToList();
             return View(users);
         }
+
+        public ActionResult Listafuncionarios()
+        {
+            int aux = 0;
+            var UserID = User.Identity.GetUserId();
+            foreach (var i in db.Users)
+            {
+               if(i.Id == UserID)
+               {
+                    aux = (int)i.CompanyId;
+               }
+            }
+
+            var usr_role = db.Roles.Single(x => x.Name == "employee").Id;
+            //var clientes = db.Users.Include(r => r.Roles));
+            //var u = clientes.Where(c => c.Roles == usr_role);
+            var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(usr_role)).Where(u => u.CompanyId == aux).ToList();
+            return View(users);
+        }
         public ActionResult EditaCliente(string id)
         {
             if (id == null)
@@ -188,7 +208,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditaCliente([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnable,LockoutEndDateUtc,LockoutEnable,AcessFailedCount,UserName")] ApplicationUser user)
+        public ActionResult EditaCliente([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnable,LockoutEndDateUtc,LockoutEnable,AcessFailedCount,UserName,CompanyId")] ApplicationUser user)
         {
             if (NameClientRepeted(user))
             {
@@ -198,7 +218,14 @@ namespace eShopping.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("listaclientes");
+                if(user.CompanyId == null)
+                {
+                    return RedirectToAction("listaclientes");
+                }
+                else
+                {
+                    return RedirectToAction("Listafuncionarios");
+                }     
             }
             return View(user);
         }
