@@ -192,7 +192,10 @@ namespace eShopping.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-
+            if (model.Adress == null)
+            {
+                ModelState.AddModelError("Adress", "Please insert a valid address");
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email, Adress = model.Adress };
@@ -233,7 +236,7 @@ namespace eShopping.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Manage");
                 }
                 AddErrors(result);
             }
@@ -572,7 +575,7 @@ namespace eShopping.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Name, Email = model.Email, Adress = model.Adress};
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                

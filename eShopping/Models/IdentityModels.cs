@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace eShopping.Models
         [ForeignKey("Company")]
         public int? CompanyId { get; set; }
         public Company Company { get; set; }
+        [Required]
         public string Adress { get; set; }
     }
 

@@ -315,6 +315,10 @@
     <Compile Include="Migrations\202101112023194_AddAdress.Designer.cs">
       <DependentUpon>202101112023194_AddAdress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101121425598_RequiredAddress.cs" />
+    <Compile Include="Migrations\202101121425598_RequiredAddress.Designer.cs">
+      <DependentUpon>202101121425598_RequiredAddress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -2588,6 +2592,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101112023194_AddAdress.resx">
       <DependentUpon>202101112023194_AddAdress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121425598_RequiredAddress.resx">
+      <DependentUpon>202101121425598_RequiredAddress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
