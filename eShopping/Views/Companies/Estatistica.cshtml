@@ -1,0 +1,21 @@
+﻿@model eShopping.Models.Order
+
+<h2>Statistics</h2>
+
+<div>
+    <p>
+        @{ var valorm = ViewBag.ValorMediaTotal; }
+        Average sales value: @valorm
+    </p>
+    <p>
+        @{ var valord = ViewBag.VendasHoje; }
+        Today's sales number: @valord
+    </p>
+    <p>
+        @{ var valore = ViewBag.ValorMedioDeVendasPorDias; }
+        Average Sales Value Per Days: @valore
+    </p>
+
+
+    
+</div>

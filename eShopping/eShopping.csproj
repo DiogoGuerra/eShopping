@@ -2473,6 +2473,7 @@
     <Content Include="Views\Products\ListProdPromotions.cshtml" />
     <Content Include="Views\Products\EditPromo.cshtml" />
     <Content Include="Views\Companies\Listafuncionarios.cshtml" />
+    <Content Include="Views\Companies\Estatistica.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

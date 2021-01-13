@@ -116,8 +116,8 @@ namespace eShopping.Controllers
         {
             Company aux = null;
             Company apaga = null;
-            var company = db.Empresas.Include(p => p.Produtos); 
-            foreach(var w in company)
+            var company = db.Empresas.Include(p => p.Produtos);
+            foreach (var w in company)
             {
                 if (w.CompanyId == id)
                     aux = w;
@@ -177,10 +177,10 @@ namespace eShopping.Controllers
             var UserID = User.Identity.GetUserId();
             foreach (var i in db.Users)
             {
-               if(i.Id == UserID)
-               {
+                if (i.Id == UserID)
+                {
                     aux = (int)i.CompanyId;
-               }
+                }
             }
 
             var usr_role = db.Roles.Single(x => x.Name == "employee").Id;
@@ -218,16 +218,61 @@ namespace eShopping.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                if(user.CompanyId == null)
+                if (user.CompanyId == null)
                 {
                     return RedirectToAction("listaclientes");
                 }
                 else
                 {
                     return RedirectToAction("Listafuncionarios");
-                }     
+                }
             }
             return View(user);
+        }
+
+        public ActionResult Estatistica()
+        {
+            int aux = 0;
+            var UserID = User.Identity.GetUserId();
+            foreach (var i in db.Users)
+            {
+                if (i.Id == UserID)
+                {
+                    aux = (int)i.CompanyId;
+                }
+            }
+            Company co = db.Empresas.Find(aux);
+            double soma_valortotal = 0;
+            float valordiario = 0;
+            int contador_pedidos = 0;
+            int contador_pedidos_mes = 0;
+            int contadordodia = 0;
+            double media_valortotal = 0;
+            foreach (var i in db.Pedidos)
+            {
+                if (i.Empresa == co)
+                {
+                    if(i.Data_Venda == DateTime.Now)
+                    {
+                        contadordodia++;
+                    }
+                    if((i.Data_Venda - DateTime.Now).TotalDays < 31)
+                    {
+                        contador_pedidos_mes++;
+                    }
+                    contador_pedidos++;
+                    soma_valortotal += i.Preco_Total;
+                    
+                }
+
+            }
+            media_valortotal = soma_valortotal / contador_pedidos;
+            valordiario = (float)(contador_pedidos_mes / 31);
+
+            ViewBag.ValorMediaTotal = media_valortotal;
+            ViewBag.VendasHoje = contadordodia;
+            ViewBag.ValorMedioDeVendasPorDias = valordiario;
+            return View();
         }
 
     }
