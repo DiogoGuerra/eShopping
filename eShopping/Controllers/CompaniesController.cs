@@ -15,12 +15,13 @@ namespace eShopping.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Companies
         public ActionResult Index()
         {
             return View(db.Empresas.Where(e => e.EstaEliminado == false).ToList());
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Companies/Details/5
         public ActionResult Details(string id)
         {
@@ -58,7 +59,7 @@ namespace eShopping.Controllers
 
             return View(company);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Companies/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -93,7 +94,7 @@ namespace eShopping.Controllers
             }
             return View(company);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Companies/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -160,7 +161,7 @@ namespace eShopping.Controllers
                 return false;
             return true;
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         public ActionResult Listaclientes()
         {
 
@@ -170,7 +171,7 @@ namespace eShopping.Controllers
             var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(usr_role)).ToList();
             return View(users);
         }
-
+        [Authorize(Roles = RoleName.Company)]
         public ActionResult Listafuncionarios()
         {
             int aux = 0;
@@ -189,6 +190,7 @@ namespace eShopping.Controllers
             var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(usr_role)).Where(u => u.CompanyId == aux).ToList();
             return View(users);
         }
+        [Authorize(Roles = RoleName.Admin)]
         public ActionResult EditaCliente(string id)
         {
             if (id == null)
@@ -229,7 +231,7 @@ namespace eShopping.Controllers
             }
             return View(user);
         }
-
+        [Authorize(Roles = RoleName.Company)]
         public ActionResult Estatistica()
         {
             int aux = 0;

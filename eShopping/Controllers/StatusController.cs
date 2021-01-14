@@ -14,12 +14,13 @@ namespace eShopping.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Status
         public ActionResult Index()
         {
             return View(db.Estados.ToList());
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Status/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,7 +35,7 @@ namespace eShopping.Controllers
             }
             return View(status);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Status/Create
         public ActionResult Create()
         {
@@ -57,7 +58,7 @@ namespace eShopping.Controllers
 
             return View(status);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Status/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -88,7 +89,7 @@ namespace eShopping.Controllers
             }
             return View(status);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Status/Delete/5
         public ActionResult Delete(int? id)
         {

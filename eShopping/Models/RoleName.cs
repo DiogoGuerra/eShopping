@@ -11,5 +11,9 @@ namespace eShopping.Models
         public const string Company = "company";
         public const string User = "user";
         public const string Employee = "employee";
+
+        public const string AdminOrUser = Admin + "," + User;
+        public const string AdminOrCompany = Admin + "," + Company;
+        public const string AdminOrEmployee = Admin + "," + Employee;
     }
 }

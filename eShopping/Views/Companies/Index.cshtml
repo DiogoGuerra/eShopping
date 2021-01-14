@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<eShopping.Models.Company>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+
 <table class="table">
     <tr>
         <th>
@@ -11,9 +9,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.EstaEliminado)
-        </th>*@
         <th></th>
     </tr>
 
@@ -25,9 +20,6 @@
     <td>
         @Html.DisplayFor(modelItem => item.Email)
     </td>
-    @*<td>
-        @Html.DisplayFor(modelItem => item.EstaEliminado)
-    </td>*@
 
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId }) |

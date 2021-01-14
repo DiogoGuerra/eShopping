@@ -13,13 +13,13 @@ namespace eShopping.Controllers
     public class DeliveriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Deliveries
         public ActionResult Index()
         {
             return View(db.Entregas.ToList());
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Deliveries/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,7 +34,7 @@ namespace eShopping.Controllers
             }
             return View(delivery);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Deliveries/Create
         public ActionResult Create()
         {
@@ -57,7 +57,7 @@ namespace eShopping.Controllers
 
             return View(delivery);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Deliveries/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -88,7 +88,7 @@ namespace eShopping.Controllers
             }
             return View(delivery);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Deliveries/Delete/5
         public ActionResult Delete(int? id)
         {

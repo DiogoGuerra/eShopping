@@ -1,15 +1,14 @@
-﻿@model IEnumerable<eShopping.Models.Products>
+﻿
+
+@model IEnumerable<eShopping.Models.Products>
 
 @{
     ViewBag.Title = "ListCostumerProducts";
 }
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
 <div class="content">
     <div class="container-fluid">
-        <table id="products1" class="table table-bordered table-striped dataTable">
+        <table id="products" class="table table-bordered table-striped dataTable">
             <thead>
                 <tr>
                     <th>
@@ -30,6 +29,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Taxa_Promocao)
                     </th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -56,7 +56,7 @@
                             @Html.DisplayFor(modelItem => item.Taxa_Promocao)
                         </td>
                         <td>
-                            @Html.ActionLink("Add to Cart", "ButtonAddCart",new { id = item.ProductID })
+                            @Html.ActionLink("Add to Cart", "ButtonAddCart", new { id = item.ProductID })
                         </td>
                     </tr>
                 }
@@ -65,11 +65,10 @@
     </div>
 </div>
 
-@*@section Scripts {
+@section Scripts {
     <script>
         $(document).ready(function () {
-            $("#products1").DataTable();
+            $("#products").DataTable();
         });
     </script>
-}*@
-
+}

@@ -14,21 +14,21 @@ namespace eShopping.Controllers
     public class OrdersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Orders
         public ActionResult Index()
         {
             var pedidos = db.Pedidos.Include(o => o.Entrega);
             return View(pedidos.ToList());
         }
-
+        [Authorize(Roles = RoleName.User)]
         public ActionResult UserOrders()
         {
             string userid = User.Identity.GetUserId();
             var pedidos = db.Pedidos.Include(o => o.Entrega).Where(p => p.ID_Cliente  == userid).Where(p => p.PedidoEmAberto == true);
             return View(pedidos.ToList());
         }
-
+        [Authorize(Roles = RoleName.Employee)]
         public ActionResult ListOrdersEmployee()
         {
             string employeeid = User.Identity.GetUserId();
@@ -48,7 +48,7 @@ namespace eShopping.Controllers
             
             return View(pedidos.ToList());
         }
-
+        [Authorize(Roles = RoleName.Employee)]
         public ActionResult ListOrdersPending()
         {
             string employeeid = User.Identity.GetUserId();
@@ -83,15 +83,13 @@ namespace eShopping.Controllers
                 if(i.PedidoEmAberto == true && i.ID_Cliente == User.Identity.GetUserId())
                 {
                     i.Estado = est;
-                    i.PedidoEmAberto = false;
-                   
+                    i.PedidoEmAberto = false; 
                 }
             }
-
             db.SaveChanges();
             return RedirectToAction("ListCostumerProducts","Products");
         }
-
+        [Authorize(Roles = RoleName.User)]
         public ActionResult OrdersHistory()
         {
             //fALTA LISTAR OS PRODUTOS
@@ -99,7 +97,7 @@ namespace eShopping.Controllers
             var pedidos = db.Pedidos.Include(e => e.Estado).Include(o => o.Entrega).Where(p => p.ID_Cliente == userid).Where(c => c.PedidoEmAberto == false);
             return View(pedidos.ToList());
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {
@@ -114,7 +112,7 @@ namespace eShopping.Controllers
             }
             return View(order);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Orders/Create
         public ActionResult Create()
         {
@@ -139,7 +137,7 @@ namespace eShopping.Controllers
             ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
             return View(order);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -173,7 +171,7 @@ namespace eShopping.Controllers
             ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
             return View(order);
         }
-
+        [Authorize(Roles = RoleName.Employee)]
         public ActionResult EditStatus(int? id)
         {
             if (id == null)
@@ -214,7 +212,7 @@ namespace eShopping.Controllers
             ViewBag.Estado = new SelectList(db.Estados, "ID", "Descricao", order.Estado);
             return View(order);
         }
-
+        [Authorize(Roles = RoleName.Admin)]
         // GET: Orders/Delete/5
         public ActionResult Delete(int? id)
         {

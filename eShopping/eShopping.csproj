@@ -2461,7 +2461,6 @@
     <Content Include="Views\Account\AtribuirNomeEmpresa.cshtml" />
     <Content Include="Views\ProductsOrders\Edit.cshtml" />
     <Content Include="Views\ProductsOrders\Delete.cshtml" />
-    <Content Include="Views\ProductsOrders\ButtonAddCart1.cshtml" />
     <Content Include="Views\Products\CompanyIndex.cshtml" />
     <Content Include="Views\Products\CompanyCreate.cshtml" />
     <Content Include="Views\Account\RegisterEmployee.cshtml" />
