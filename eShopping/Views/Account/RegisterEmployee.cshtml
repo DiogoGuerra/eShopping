@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.TextBoxFor(m => m.Adress, new { placeholder = "Address", @class = "form-control" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype Password", @class = "form-control" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -73,10 +73,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype Password", @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Adress, new { placeholder = "Address", @class = "form-control" })
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <span class="fas fa-house-user"></span>
                             </div>
                         </div>
                     </div>

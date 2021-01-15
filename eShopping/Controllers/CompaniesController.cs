@@ -190,7 +190,7 @@ namespace eShopping.Controllers
             var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(usr_role)).Where(u => u.CompanyId == aux).ToList();
             return View(users);
         }
-        [Authorize(Roles = RoleName.Admin)]
+        [Authorize(Roles = RoleName.AdminOrCompany)]
         public ActionResult EditaCliente(string id)
         {
             if (id == null)
@@ -210,7 +210,7 @@ namespace eShopping.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditaCliente([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnable,LockoutEndDateUtc,LockoutEnable,AcessFailedCount,UserName,CompanyId")] ApplicationUser user)
+        public ActionResult EditaCliente([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnable,LockoutEndDateUtc,LockoutEnable,AcessFailedCount,UserName,CompanyId,Adress")] ApplicationUser user)
         {
             if (NameClientRepeted(user))
             {
@@ -254,7 +254,7 @@ namespace eShopping.Controllers
             {
                 if (i.Empresa == co)
                 {
-                    if(i.Data_Venda == DateTime.Now)
+                    if(i.Data_Venda.Date == DateTime.Now.Date)
                     {
                         contadordodia++;
                     }

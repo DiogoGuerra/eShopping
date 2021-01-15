@@ -271,7 +271,7 @@ namespace eShopping.Controllers
                 if (i.Nome_Produto == products.Nome_Produto && i.CompanyId == products.CompanyId)
                 {
                     flag = true;
-                    ModelState.AddModelError("CompanyId", "This company already have this product!");
+                    ModelState.AddModelError("Nome_Produto", "This company already have this product!");
                 }
             }
 
@@ -287,6 +287,24 @@ namespace eShopping.Controllers
                     return RedirectToAction("Index");
                 }
             }
+
+            int com = 0;
+            if (User.IsInRole(RoleName.Company))
+            {
+                var userID = User.Identity.GetUserId();
+
+                foreach (var i in db.Users)
+                {
+                    if (i.Id == userID)
+                    {
+                        com = (int)i.CompanyId;
+                    }
+                }
+                ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria");
+                Products novo = new Products { CompanyId = com, EstaEliminado = false };
+                return View("CompanyCreate", novo);
+            }
+
             ViewBag.CompanyId = new SelectList(db.Empresas.Where(c => c.EstaEliminado == false), "CompanyId", "Nome");
             ViewBag.CategoriaID = new SelectList(db.Categorias.Where(c => c.EstaEliminado == false), "ID", "Nome_Categoria", products.CategoriaID);
             return View(products);
