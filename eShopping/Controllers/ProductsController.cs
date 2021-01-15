@@ -45,7 +45,7 @@ namespace eShopping.Controllers
         [Authorize(Roles = RoleName.User)]
         public ActionResult ListCostumerProducts(string categoria)
         {
-            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false).Where(s => s.Stock > 0);
+            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false).Where(s => s.Stock > 0).Where( s => s.EstaNoCatalogo == true);
 
             if (!string.IsNullOrEmpty(categoria))
                 produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria).Where(r => r.EstaEliminado == false);
@@ -54,7 +54,7 @@ namespace eShopping.Controllers
         [AllowAnonymous]
         public ActionResult ListAnonymous(string categoria)
         {
-            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false).Where(s => s.Stock > 0);
+            var produtos = db.Produtos.Include(p => p.Categoria).Include(e => e.Company).Where(r => r.EstaEliminado == false).Where(s => s.Stock > 0).Where(s => s.EstaNoCatalogo == true);
 
             if (!string.IsNullOrEmpty(categoria))
                 produtos = produtos.Where(p => p.Categoria.Nome_Categoria == categoria).Where(r => r.EstaEliminado == false);
@@ -348,7 +348,8 @@ namespace eShopping.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Products products = db.Produtos.Find(id);
-            db.Produtos.Remove(products);
+            //db.Produtos.Remove(products);
+            products.EstaEliminado = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

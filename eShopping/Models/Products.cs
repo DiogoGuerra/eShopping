@@ -27,6 +27,7 @@ namespace eShopping.Models
         [Range(0, 100)]
         [Display(Name = "Price")]
         public double Preco_Produto { get; set; }
+        [Display(Name = "It's in the catalog")]
         public bool EstaNoCatalogo { get; set; }
 
         public Category Categoria { get; set; }

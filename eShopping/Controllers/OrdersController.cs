@@ -137,7 +137,7 @@ namespace eShopping.Controllers
             ViewBag.EntregaID = new SelectList(db.Entregas, "ID", "Tipo", order.EntregaID);
             return View(order);
         }
-        [Authorize(Roles = RoleName.Admin)]
+        [Authorize(Roles = RoleName.AdminOrUser)]
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {

@@ -57,7 +57,7 @@ namespace eShopping.Controllers
 
             return View(delivery);
         }
-        [Authorize(Roles = RoleName.Admin)]
+        [Authorize(Roles = RoleName.AdminOrUser)]
         // GET: Deliveries/Edit/5
         public ActionResult Edit(int? id)
         {
