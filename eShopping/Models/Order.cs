@@ -16,6 +16,7 @@ namespace eShopping.Models
         
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Order Date")]
         public DateTime Data_Venda { get; set; }
       
         public Status Estado { get; set; }
